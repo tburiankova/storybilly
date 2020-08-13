@@ -1,37 +1,32 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { selectUserPosts } from '../redux/selectors';
 import { fetchPosts } from '../redux/actions';
+import { selectPost } from '../redux/selectors';
 
-import PostsList from '../components/posts/PostsList';
 import Spinner from '../components/ui/Spinner';
 
-const UserPosts = ({ posts, userPosts, fetchPosts, loading }) => {
+const Post = ({ posts, post, loading, fetchPosts }) => {
   useEffect(() => {
     if (posts.length === 0) {
       fetchPosts();
     }
   }, []);
 
-  if (loading) {
+  if (loading || posts.length === 0) {
     return <Spinner />;
   }
 
-  if (!userPosts) {
-    return <p>No posts found...</p>;
+  if (!post) {
+    return <p>No post found...</p>;
   }
 
-  return (
-    <div>
-      <PostsList posts={userPosts} userPosts />
-    </div>
-  );
+  return <div>{post.title}</div>;
 };
 
 const mapStateToProps = (state, ownProps) => ({
   posts: state.data.posts,
-  userPosts: selectUserPosts(ownProps.match.params.userId)(state),
+  post: selectPost(ownProps.match.params.postId)(state),
   loading: state.data.loading,
 });
 
@@ -39,4 +34,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchPosts: () => dispatch(fetchPosts()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserPosts);
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

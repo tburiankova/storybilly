@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import PostCard from './PostCard';
+import Spinner from '../ui/Spinner';
 
-const PostsList = ({ posts, loading, error }) => {
+const PostsList = ({ posts, loading, error, userPosts }) => {
   if (loading) {
-    return <p>Getting posts...</p>;
+    return <Spinner />;
   }
 
   if (error) {
@@ -16,7 +17,7 @@ const PostsList = ({ posts, loading, error }) => {
   return (
     <ul>
       {posts.map((post) => (
-        <PostCard key={post._id} post={post} />
+        <PostCard key={post._id} post={post} userPosts={userPosts} />
       ))}
     </ul>
   );

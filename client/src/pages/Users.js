@@ -8,7 +8,7 @@ import UsersList from '../components/users/UsersList';
 const Users = ({ users }) => {
   return (
     <div>
-      <Link to="/posts/Test">Test user posts</Link>
+      <Link to="/user/Test">Test user posts</Link>
       <UsersList users={users} />
     </div>
   );

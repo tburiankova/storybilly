@@ -1,10 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const PostCard = ({ post }) => {
-  if (!post) {
-    return <p>Getting posts</p>;
-  }
-  return <div>{post.title}</div>;
+  return <Link to={`post/${post._id}`}>{post.title}</Link>;
 };
 
 export default PostCard;
