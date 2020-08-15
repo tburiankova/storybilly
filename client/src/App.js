@@ -10,6 +10,7 @@ import Index from './pages/Index';
 import Posts from './pages/Posts';
 import UserPosts from './pages/UserPosts';
 import Post from './pages/Post';
+import UpdatePost from './pages/UpdatePost';
 import NewPost from './pages/NewPost';
 import Users from './pages/Users';
 import Navigation from './components/navigation/Navigation';
@@ -24,6 +25,7 @@ function App() {
         <Route path="/posts/new" component={NewPost} exact />
         <Route path="/user/:userId" component={UserPosts} exact />
         <Route path="/user/post/:postId" component={Post} exact />
+        <Route path="/user/post/update/:postId" component={UpdatePost} exact />
         <Route path="/post/:postId" component={Post} exact />
         <Route path="/users" component={Users} exact />
         <Redirect to="/" />

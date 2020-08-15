@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { fetchPosts } from '../redux/actions';
 import { selectPost } from '../redux/selectors';
@@ -21,7 +22,13 @@ const Post = ({ posts, post, loading, fetchPosts }) => {
     return <p>No post found...</p>;
   }
 
-  return <div>{post.title}</div>;
+  return (
+    <>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+      <Link to={`update/${post._id}`}>Update</Link>
+    </>
+  );
 };
 
 const mapStateToProps = (state, ownProps) => ({
