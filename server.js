@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
-const posts = require('./routes/postRoutes');
+const HttpError = require('./models/httpError');
+
+// routes
+const posts = require('./routes/postsRoutes');
 
 const app = express();
 
@@ -28,6 +31,23 @@ mongoose
 
 // routes
 app.use('/api/posts', posts);
+
+// handling unexisting routes
+app.use((req, res, next) => {
+  const error = new HttpError('Could not find this route', 404);
+  throw error;
+});
+
+// error handler
+app.use((err, req, res, next) => {
+  if (res.headerSent) {
+    return next(err);
+  }
+
+  res
+    .status(err.code || 500)
+    .json({ message: err.message || 'An unknown error occurred' });
+});
 
 const port = process.env.PORT || 5000;
 
