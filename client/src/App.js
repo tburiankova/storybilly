@@ -14,6 +14,7 @@ import UpdatePost from './pages/UpdatePost';
 import NewPost from './pages/NewPost';
 import Users from './pages/Users';
 import Navigation from './components/navigation/Navigation';
+import Account from './pages/Account';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/user/post/update/:postId" component={UpdatePost} exact />
         <Route path="/post/:postId" component={Post} exact />
         <Route path="/users" component={Users} exact />
+        <Route path="/account" component={Account} exact />
         <Redirect to="/" />
       </Switch>
     </Router>

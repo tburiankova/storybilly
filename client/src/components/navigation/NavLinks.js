@@ -14,7 +14,7 @@ const NavLinks = () => {
         <NavLink to="/posts/new">Add a story</NavLink>
       </li>
       <li>
-        <NavLink to="/auth">Account</NavLink>
+        <NavLink to="/account">Account</NavLink>
       </li>
     </ul>
   );

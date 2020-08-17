@@ -36,23 +36,25 @@ const UpdatePost = ({ posts, post, loading, fetchPosts }) => {
   );
 
   useEffect(() => {
-    setFormData(
-      {
-        title: {
-          value: post.title,
-          isValid: true,
+    if (post) {
+      setFormData(
+        {
+          title: {
+            value: post.title,
+            isValid: true,
+          },
+          content: {
+            value: post.content,
+            isValid: true,
+          },
+          image: {
+            value: post.image,
+            isValid: true,
+          },
         },
-        content: {
-          value: post.content,
-          isValid: true,
-        },
-        image: {
-          value: post.image,
-          isValid: true,
-        },
-      },
-      true
-    );
+        true
+      );
+    }
   }, [setFormData, post]);
 
   if (loading || posts.length === 0) {
@@ -69,42 +71,50 @@ const UpdatePost = ({ posts, post, loading, fetchPosts }) => {
     console.log(formState.inputs);
   };
 
+  const deletePostHandler = () => {
+    // TODO: delete in DB
+    console.log('Deleting', post._id);
+  };
+
   return (
     <div>
       {/* // TODO: fix conditional rendering */}
       {formState.inputs.title.value && (
-        <form onSubmit={updatePostHandler}>
-          <Input
-            id="title"
-            label="Title"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorMessage="Please enter a valid title"
-            onInput={inputHandler}
-            value={formState.inputs.title.value}
-            valid={formState.inputs.title.isValid}
-          />
-          <Input
-            id="content"
-            inputType="textarea"
-            label="Content"
-            validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(10)]}
-            errorMessage="A story must have at least 10 characters"
-            onInput={inputHandler}
-            value={formState.inputs.content.value}
-            valid={formState.inputs.content.isValid}
-          />
-          <Input
-            id="image"
-            label="Image"
-            validators={[]}
-            onInput={inputHandler}
-            value={formState.inputs.image.value}
-            valid
-          />
-          <Button type="submit" disabled={!formState.isFormValid}>
-            Update Story
-          </Button>
-        </form>
+        <>
+          <form onSubmit={updatePostHandler}>
+            <Input
+              id="title"
+              label="Title"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorMessage="Please enter a valid title"
+              onInput={inputHandler}
+              value={formState.inputs.title.value}
+              valid={formState.inputs.title.isValid}
+            />
+            <Input
+              id="content"
+              inputType="textarea"
+              label="Content"
+              validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(10)]}
+              errorMessage="A story must have at least 10 characters"
+              onInput={inputHandler}
+              value={formState.inputs.content.value}
+              valid={formState.inputs.content.isValid}
+            />
+            <Input
+              id="image"
+              label="Image"
+              validators={[]}
+              onInput={inputHandler}
+              value={formState.inputs.image.value}
+              valid
+            />
+            <Button type="submit" disabled={!formState.isFormValid}>
+              Update Story
+            </Button>
+          </form>
+          <Button onClick={deletePostHandler}>Delete Story</Button>
+        </>
       )}
     </div>
   );
