@@ -15,11 +15,13 @@ import NewPost from './pages/NewPost';
 import Users from './pages/Users';
 import Navigation from './components/navigation/Navigation';
 import Account from './pages/Account';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <Router>
-      <Navigation />
+function App({ isLoggedIn }) {
+  let routes;
+
+  if (isLoggedIn) {
+    routes = (
       <Switch>
         <Route path="/" component={Index} exact />
         <Route path="/posts" component={Posts} exact />
@@ -32,8 +34,32 @@ function App() {
         <Route path="/account" component={Account} exact />
         <Redirect to="/" />
       </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route path="/" component={Index} exact />
+        <Route path="/posts" component={Posts} exact />
+        <Route path="/user/:userId" component={UserPosts} exact />
+        <Route path="/user/post/:postId" component={Post} exact />
+        <Route path="/post/:postId" component={Post} exact />
+        <Route path="/users" component={Users} exact />
+        <Route path="/account" component={Account} exact />
+        <Redirect to="/account" />
+      </Switch>
+    );
+  }
+
+  return (
+    <Router>
+      <Navigation />
+      {routes}
     </Router>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn,
+});
+
+export default connect(mapStateToProps)(App);

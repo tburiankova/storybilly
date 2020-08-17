@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import {
   VALIDATOR_EMAIL,
@@ -6,11 +7,12 @@ import {
   VALIDATOR_REQUIRE,
 } from '../utils/validators';
 import { useForm } from '../hooks/useForm';
+import { login } from '../redux/actions';
 
 import Button from '../components/forms/Button';
 import Input from '../components/forms/Input';
 
-const Account = () => {
+const Account = ({ login }) => {
   const [loginMode, setLoginMode] = useState(true);
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -31,6 +33,7 @@ const Account = () => {
     e.preventDefault();
     // TODO: send to backend
     console.log(formState.inputs);
+    login();
   };
 
   const modeHandler = () => {
@@ -98,4 +101,8 @@ const Account = () => {
   );
 };
 
-export default Account;
+const mapDispatchToProps = (dispatch) => ({
+  login: () => dispatch(login()),
+});
+
+export default connect(null, mapDispatchToProps)(Account);
