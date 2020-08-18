@@ -143,17 +143,33 @@ exports.updatePost = async (req, res, next) => {
 };
 
 exports.deletePost = async (req, res, next) => {
+  const postId = req.params.id;
+  let post;
   try {
-    const postToDelete = await Post.findByIdAndDelete(req.params.id);
-    if (!postToDelete) {
-      return next(new HttpError('Post not found', 404));
-    }
-    res.status(200).json({
-      message: 'Post successfully deleted',
-    });
+    post = await Post.findById(postId).populate('author');
   } catch (err) {
     return next(
       new HttpError('Something went wrong, please try again later', 500)
     );
   }
+
+  if (!post) {
+    return next(new HttpError('Post not found', 404));
+  }
+
+  try {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    await post.remove({ session });
+    post.author.posts.pull(post);
+    await post.author.save({ session });
+    await session.commitTransaction();
+  } catch (err) {
+    return next(
+      new HttpError('Something went wrong, please try again later', 500)
+    );
+  }
+  res.json({
+    message: 'Post successfully deleted',
+  });
 };
