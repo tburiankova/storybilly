@@ -1,6 +1,9 @@
-const Post = require('../models/post');
-const HttpError = require('../models/httpError');
 const { validationResult } = require('express-validator');
+const mongoose = require('mongoose');
+
+const Post = require('../models/post');
+const User = require('../models/user');
+const HttpError = require('../models/httpError');
 
 exports.getPosts = async (req, res, next) => {
   try {
@@ -66,16 +69,39 @@ exports.createPost = async (req, res, next) => {
   }
 
   const { title, content, image, author } = req.body;
+
+  const newPost = new Post({ title, content, image, author });
+
+  let user;
+
   try {
-    const newPost = await Post.create({ title, content, image, author });
-    res
-      .status(201)
-      .json({ message: 'Post successfully created', post: newPost });
+    user = await User.findById(author);
   } catch (err) {
     return next(
       new HttpError('Something went wrong, please try again later', 500)
     );
   }
+
+  if (!user) {
+    return next(
+      new HttpError('Could not find the user, please try again', 404)
+    );
+  }
+
+  try {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    await newPost.save({ session });
+    user.posts.push(newPost);
+    await user.save({ session });
+    await session.commitTransaction();
+  } catch (err) {
+    return next(
+      new HttpError('Something went wrong, please try again later', 500)
+    );
+  }
+
+  res.status(201).json({ message: 'Post successfully created', post: newPost });
 };
 
 exports.updatePost = async (req, res, next) => {
