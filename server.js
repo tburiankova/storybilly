@@ -7,6 +7,7 @@ const HttpError = require('./models/httpError');
 
 // routes
 const posts = require('./routes/postsRoutes');
+const users = require('./routes/usersRoutes');
 
 const app = express();
 
@@ -31,6 +32,7 @@ mongoose
 
 // routes
 app.use('/api/posts', posts);
+app.use('/api/users', users);
 
 // handling unexisting routes
 app.use((req, res, next) => {

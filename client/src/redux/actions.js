@@ -5,7 +5,7 @@ export const fetchPosts = () => {
     try {
       dispatch({ type: 'SET_LOADING' });
       const response = await axios.get('http://localhost:5000/api/posts');
-      dispatch({ type: 'FETCH_POSTS', payload: response.data.data });
+      dispatch({ type: 'FETCH_POSTS', payload: response.data.posts });
     } catch (err) {
       console.log(err);
       dispatch({ type: 'SET_ERROR' });
