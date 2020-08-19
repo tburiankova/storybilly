@@ -1,14 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import UsersList from '../components/users/UsersList';
+import { fetchUsers } from '../redux/actions/dataActions';
 
-const Users = ({ users }) => {
+const Users = ({ users, fetchUsers }) => {
+  useEffect(() => {
+    if (users.length === 0) {
+      fetchUsers();
+    }
+  }, []);
+
   return (
     <div>
-      <Link to="/user/Test">Test user posts</Link>
       <UsersList users={users} />
     </div>
   );
@@ -16,10 +21,15 @@ const Users = ({ users }) => {
 
 Users.propTypes = {
   users: PropTypes.array.isRequired,
+  fetchUsers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   users: state.data.users,
 });
 
-export default connect(mapStateToProps)(Users);
+const mapDispatchToProps = (dispatch) => ({
+  fetchUsers: () => dispatch(fetchUsers()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

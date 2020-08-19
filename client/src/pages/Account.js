@@ -11,8 +11,9 @@ import { signup, login } from '../redux/actions/authActions';
 
 import Button from '../components/forms/Button';
 import Input from '../components/forms/Input';
+import Spinner from '../components/ui/Spinner';
 
-const Account = ({ login, signup }) => {
+const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
   const [loginMode, setLoginMode] = useState(true);
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -71,50 +72,61 @@ const Account = ({ login, signup }) => {
     setLoginMode((prevMode) => !prevMode);
   };
 
-  return (
-    <div>
-      <h2>Log In</h2>
-      <form onSubmit={onSubmitHandler}>
-        {!loginMode && (
+  if (isLoggedIn) {
+    return <div>Welcome, {user.name}!</div>;
+  } else {
+    return (
+      <div>
+        <h2>{loginMode ? 'Log In' : 'Sign Up'}</h2>
+        {isLoading && <Spinner />}
+        <form onSubmit={onSubmitHandler}>
+          {!loginMode && (
+            <Input
+              id="name"
+              type="text"
+              label="Name"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorMessage="Please enter your name"
+              onInput={inputHandler}
+            />
+          )}
           <Input
-            id="name"
-            type="text"
-            label="Name"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorMessage="Please enter your name"
+            id="email"
+            type="email"
+            label="Email"
+            validators={[VALIDATOR_EMAIL()]}
+            errorMessage="Please provide a valid e-mail address"
             onInput={inputHandler}
           />
-        )}
-        <Input
-          id="email"
-          type="email"
-          label="Email"
-          validators={[VALIDATOR_EMAIL()]}
-          errorMessage="Please provide a valid e-mail address"
-          onInput={inputHandler}
-        />
-        <Input
-          id="password"
-          type="password"
-          label="Password"
-          validators={[VALIDATOR_MINLENGTH(6)]}
-          errorMessage="Password must be at least 6 characters"
-          onInput={inputHandler}
-        />
-        <Button type="submit" disabled={!formState.isFormValid}>
-          {loginMode ? 'Log In' : 'Sign Up'}
-        </Button>
-        <Button type="button" onClick={modeHandler}>
-          {loginMode ? 'Sign Up' : 'Log In'}
-        </Button>
-      </form>
-    </div>
-  );
+          <Input
+            id="password"
+            type="password"
+            label="Password"
+            validators={[VALIDATOR_MINLENGTH(6)]}
+            errorMessage="Password must be at least 6 characters"
+            onInput={inputHandler}
+          />
+          <Button type="submit" disabled={!formState.isFormValid}>
+            {loginMode ? 'Log In' : 'Sign Up'}
+          </Button>
+          <Button type="button" onClick={modeHandler}>
+            {loginMode ? 'Sign Up' : 'Log In'}
+          </Button>
+        </form>
+      </div>
+    );
+  }
 };
+
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn,
+  user: state.auth.user,
+  isLoading: state.auth.isLoading,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   login: (data) => dispatch(login(data)),
   signup: (data) => dispatch(signup(data)),
 });
 
-export default connect(null, mapDispatchToProps)(Account);
+export default connect(mapStateToProps, mapDispatchToProps)(Account);

@@ -7,7 +7,7 @@ const styles = {
   position: 'absolute',
   top: '200px',
   left: '50%',
-  transform: 'translateY(-50%)',
+  transform: 'translateX(-50%)',
   backgroundColor: 'black',
   color: 'white',
   padding: '20px 30px',

@@ -1,11 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../utils/validators';
 import { useForm } from '../hooks/useForm';
+import { showFlashMessage } from '../redux/actions/messageActions';
+import { fetchPosts } from '../redux/actions/dataActions';
 
-const NewPost = () => {
+const NewPost = ({ user, showMessage, fetchPosts }) => {
   const [formState, inputHandler] = useForm(
     {
       title: {
@@ -24,11 +29,30 @@ const NewPost = () => {
     false
   );
 
-  const onSubmitHandler = (e) => {
+  const history = useHistory();
+
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    //TODO: send to backend
-    console.log(formState.inputs);
+    const newPost = {
+      title: formState.inputs.title.value,
+      content: formState.inputs.content.value,
+      image: formState.inputs.image.value,
+      author: user._id,
+    };
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/posts`,
+        newPost
+      );
+      fetchPosts();
+      showMessage(response.data.message);
+      history.push('/');
+    } catch (err) {
+      console.log(err);
+      showMessage(err.response.data.message);
+    }
   };
 
   return (
@@ -64,4 +88,13 @@ const NewPost = () => {
   );
 };
 
-export default NewPost;
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  showMessage: (message) => dispatch(showFlashMessage(message)),
+  fetchPosts: () => dispatch(fetchPosts()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewPost);

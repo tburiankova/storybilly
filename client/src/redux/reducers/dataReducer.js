@@ -1,23 +1,8 @@
 const INITIAL_STATE = {
-  users: [
-    {
-      name: 'Jane',
-      id: 1,
-      image: 'https://randomuser.me/api/portraits/women/36.jpg',
-      posts: 3,
-    },
-    {
-      name: 'John',
-      id: 2,
-      image: 'https://randomuser.me/api/portraits/men/82.jpg',
-      posts: 2,
-    },
-  ],
+  users: [],
   posts: [],
   loading: false,
   error: false,
-  message: 'Some message',
-  showMessage: true,
 };
 
 const dataReducer = (state = INITIAL_STATE, action) => {
@@ -28,31 +13,27 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         posts: action.payload,
         loading: false,
       };
+    case 'FETCH_USERS':
+      return {
+        ...state,
+        users: action.payload,
+        loading: false,
+      };
     case 'SET_LOADING':
       return {
         ...state,
         loading: true,
+      };
+    case 'UNSET_LOADING':
+      return {
+        ...state,
+        loading: false,
       };
     case 'SET_ERROR':
       return {
         ...state,
         loading: false,
         error: true,
-      };
-    case 'SET_MESSAGE':
-      return {
-        ...state,
-        message: action.payload,
-      };
-    case 'SHOW_MESSAGE':
-      return {
-        ...state,
-        showMessage: true,
-      };
-    case 'HIDE_MESSAGE':
-      return {
-        ...state,
-        showMessage: false,
       };
     default:
       return state;
