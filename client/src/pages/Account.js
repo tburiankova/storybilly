@@ -7,12 +7,12 @@ import {
   VALIDATOR_REQUIRE,
 } from '../utils/validators';
 import { useForm } from '../hooks/useForm';
-import { login } from '../redux/actions';
+import { signup, login } from '../redux/actions';
 
 import Button from '../components/forms/Button';
 import Input from '../components/forms/Input';
 
-const Account = ({ login }) => {
+const Account = ({ login, signup }) => {
   const [loginMode, setLoginMode] = useState(true);
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -31,9 +31,20 @@ const Account = ({ login }) => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    // TODO: send to backend
-    console.log(formState.inputs);
-    login();
+    if (loginMode) {
+      const user = {
+        email: formState.inputs.email.value,
+        password: formState.inputs.password.value,
+      };
+      login(user);
+    } else {
+      const newUser = {
+        name: formState.inputs.name.value,
+        email: formState.inputs.email.value,
+        password: formState.inputs.email.value,
+      };
+      signup(newUser);
+    }
   };
 
   const modeHandler = () => {
@@ -62,7 +73,7 @@ const Account = ({ login }) => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Log In</h2>
       <form onSubmit={onSubmitHandler}>
         {!loginMode && (
           <Input
@@ -102,7 +113,8 @@ const Account = ({ login }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  login: () => dispatch(login()),
+  login: (data) => dispatch(login(data)),
+  signup: (data) => dispatch(signup(data)),
 });
 
 export default connect(null, mapDispatchToProps)(Account);
