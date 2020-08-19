@@ -7,7 +7,7 @@ import {
   VALIDATOR_REQUIRE,
 } from '../utils/validators';
 import { useForm } from '../hooks/useForm';
-import { signup, login } from '../redux/actions';
+import { signup, login } from '../redux/actions/authActions';
 
 import Button from '../components/forms/Button';
 import Input from '../components/forms/Input';

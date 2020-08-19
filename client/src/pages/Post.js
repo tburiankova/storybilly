@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchPosts } from '../redux/actions';
+import { fetchPosts } from '../redux/actions/dataActions';
 import { selectPost } from '../redux/selectors';
 
 import Spinner from '../components/ui/Spinner';

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchPosts } from '../redux/actions';
+import { fetchPosts } from '../redux/actions/dataActions';
 import { selectPost } from '../redux/selectors';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../utils/validators';
 

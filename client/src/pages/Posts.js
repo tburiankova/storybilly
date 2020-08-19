@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchPosts } from '../redux/actions';
+import { fetchPosts } from '../redux/actions/dataActions';
 import PostsList from '../components/posts/PostsList';
 
 const Posts = ({ posts, fetchPosts }) => {

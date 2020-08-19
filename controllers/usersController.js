@@ -59,7 +59,12 @@ exports.signUp = async (req, res, next) => {
     return next(new HttpError('Signing up failed, please try again later'));
   }
 
-  res.status(201).json(newUser);
+  res
+    .status(201)
+    .json({
+      message: 'Welcome! Your account has been created!',
+      user: newUser,
+    });
 };
 
 exports.logIn = async (req, res, next) => {

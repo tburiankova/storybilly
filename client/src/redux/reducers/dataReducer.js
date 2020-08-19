@@ -16,6 +16,8 @@ const INITIAL_STATE = {
   posts: [],
   loading: false,
   error: false,
+  message: 'Some message',
+  showMessage: true,
 };
 
 const dataReducer = (state = INITIAL_STATE, action) => {
@@ -36,6 +38,21 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         ...state,
         loading: false,
         error: true,
+      };
+    case 'SET_MESSAGE':
+      return {
+        ...state,
+        message: action.payload,
+      };
+    case 'SHOW_MESSAGE':
+      return {
+        ...state,
+        showMessage: true,
+      };
+    case 'HIDE_MESSAGE':
+      return {
+        ...state,
+        showMessage: false,
       };
     default:
       return state;
