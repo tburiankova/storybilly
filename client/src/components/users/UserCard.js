@@ -5,7 +5,7 @@ const UserCard = ({ user }) => {
   const { _id, name, image, posts } = user;
   return (
     <li>
-      <Link to={`users/${_id}`}>
+      <Link to={`user/${_id}`}>
         <div>
           <img src={image} alt={name} />
         </div>

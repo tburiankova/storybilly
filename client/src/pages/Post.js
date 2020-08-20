@@ -7,7 +7,7 @@ import { selectPost } from '../redux/selectors';
 
 import Spinner from '../components/ui/Spinner';
 
-const Post = ({ posts, post, loading, fetchPosts, isLoggedIn }) => {
+const Post = ({ posts, post, loading, fetchPosts, user }) => {
   useEffect(() => {
     if (posts.length === 0) {
       fetchPosts();
@@ -26,7 +26,9 @@ const Post = ({ posts, post, loading, fetchPosts, isLoggedIn }) => {
     <>
       <h1>{post.title}</h1>
       <p>{post.content}</p>
-      {isLoggedIn && <Link to={`update/${post._id}`}>Update</Link>}
+      {user._id === post.author && (
+        <Link to={`update/${post._id}`}>Manage Post</Link>
+      )}
     </>
   );
 };
@@ -35,7 +37,7 @@ const mapStateToProps = (state, ownProps) => ({
   posts: state.data.posts,
   post: selectPost(ownProps.match.params.postId)(state),
   loading: state.data.loading,
-  isLoggedIn: state.auth.isLoggedIn,
+  user: state.auth.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -18,7 +18,7 @@ const UserPosts = ({ posts, userPosts, fetchPosts, loading }) => {
     return <Spinner />;
   }
 
-  if (!userPosts) {
+  if (userPosts.length === 0) {
     return <p>No posts found...</p>;
   }
 

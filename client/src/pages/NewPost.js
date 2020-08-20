@@ -8,9 +8,9 @@ import Button from '../components/forms/Button';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../utils/validators';
 import { useForm } from '../hooks/useForm';
 import { showFlashMessage } from '../redux/actions/messageActions';
-import { fetchPosts } from '../redux/actions/dataActions';
+import { fetchPosts, fetchUsers } from '../redux/actions/dataActions';
 
-const NewPost = ({ user, showMessage, fetchPosts }) => {
+const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
   const [formState, inputHandler] = useForm(
     {
       title: {
@@ -47,8 +47,9 @@ const NewPost = ({ user, showMessage, fetchPosts }) => {
         newPost
       );
       fetchPosts();
+      fetchUsers();
       showMessage(response.data.message);
-      history.push('/');
+      history.push('/posts');
     } catch (err) {
       console.log(err);
       showMessage(err.response.data.message);
@@ -95,6 +96,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   showMessage: (message) => dispatch(showFlashMessage(message)),
   fetchPosts: () => dispatch(fetchPosts()),
+  fetchUsers: () => dispatch(fetchUsers()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPost);

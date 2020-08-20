@@ -34,6 +34,7 @@ function App({ isLoggedIn, showMessage }) {
         <Route path="/user/post/:postId" component={Post} exact />
         <Route path="/user/post/update/:postId" component={UpdatePost} exact />
         <Route path="/post/:postId" component={Post} exact />
+        <Route path="/post/update/:postId" component={UpdatePost} exact />
         <Route path="/users" component={Users} exact />
         <Route path="/account" component={Account} exact />
         <Redirect to="/" />

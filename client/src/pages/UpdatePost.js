@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { fetchPosts } from '../redux/actions/dataActions';
+import { showFlashMessage } from '../redux/actions/messageActions';
 import { selectPost } from '../redux/selectors';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../utils/validators';
 
@@ -10,7 +13,16 @@ import Spinner from '../components/ui/Spinner';
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
 
-const UpdatePost = ({ posts, post, loading, fetchPosts }) => {
+const UpdatePost = ({
+  posts,
+  post,
+  user,
+  loading,
+  fetchPosts,
+  showMessage,
+}) => {
+  const history = useHistory();
+
   useEffect(() => {
     if (posts.length === 0) {
       fetchPosts();
@@ -57,7 +69,7 @@ const UpdatePost = ({ posts, post, loading, fetchPosts }) => {
     }
   }, [setFormData, post]);
 
-  if (loading || posts.length === 0) {
+  if (loading) {
     return <Spinner />;
   }
 
@@ -65,21 +77,44 @@ const UpdatePost = ({ posts, post, loading, fetchPosts }) => {
     return <p>No post found...</p>;
   }
 
-  const updatePostHandler = (e) => {
+  const updatePostHandler = async (e) => {
     e.preventDefault();
-    // TODO: send to backend
-    console.log(formState.inputs);
+
+    const updatedPost = {
+      title: formState.inputs.title.value,
+      content: formState.inputs.content.value,
+      image: formState.inputs.image.value,
+    };
+
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${post._id}`,
+        updatedPost
+      );
+      fetchPosts();
+      showMessage(response.data.message);
+      history.push('/posts');
+    } catch (err) {
+      showMessage(err.response.data.message);
+    }
   };
 
-  const deletePostHandler = () => {
-    // TODO: delete in DB
-    console.log('Deleting', post._id);
+  const deletePostHandler = async () => {
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${post._id}`
+      );
+      fetchPosts();
+      showMessage(response.data.message);
+      history.push('/posts');
+    } catch (err) {
+      showMessage(err.response.data.message);
+    }
   };
 
   return (
     <div>
-      {/* // TODO: fix conditional rendering */}
-      {formState.inputs.title.value && (
+      {post && (
         <>
           <form onSubmit={updatePostHandler}>
             <Input
@@ -88,8 +123,8 @@ const UpdatePost = ({ posts, post, loading, fetchPosts }) => {
               validators={[VALIDATOR_REQUIRE()]}
               errorMessage="Please enter a valid title"
               onInput={inputHandler}
-              value={formState.inputs.title.value}
-              valid={formState.inputs.title.isValid}
+              value={post.title}
+              valid={true}
             />
             <Input
               id="content"
@@ -98,22 +133,26 @@ const UpdatePost = ({ posts, post, loading, fetchPosts }) => {
               validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(10)]}
               errorMessage="A story must have at least 10 characters"
               onInput={inputHandler}
-              value={formState.inputs.content.value}
-              valid={formState.inputs.content.isValid}
+              value={post.content}
+              valid={true}
             />
             <Input
               id="image"
               label="Image"
               validators={[]}
               onInput={inputHandler}
-              value={formState.inputs.image.value}
+              value={post.image}
               valid
             />
             <Button type="submit" disabled={!formState.isFormValid}>
               Update Story
             </Button>
           </form>
-          <Button onClick={deletePostHandler}>Delete Story</Button>
+          {user._id === post.author && (
+            <Button type="button" onClick={deletePostHandler}>
+              Delete Story
+            </Button>
+          )}
         </>
       )}
     </div>
@@ -124,10 +163,12 @@ const mapStateToProps = (state, ownProps) => ({
   posts: state.data.posts,
   post: selectPost(ownProps.match.params.postId)(state),
   loading: state.data.loading,
+  user: state.auth.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchPosts: () => dispatch(fetchPosts()),
+  showMessage: (message) => dispatch(showFlashMessage(message)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdatePost);

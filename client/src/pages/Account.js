@@ -12,6 +12,7 @@ import { signup, login } from '../redux/actions/authActions';
 import Button from '../components/forms/Button';
 import Input from '../components/forms/Input';
 import Spinner from '../components/ui/Spinner';
+import MyPosts from '../components/posts/MyPosts';
 
 const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
   const [loginMode, setLoginMode] = useState(true);
@@ -73,7 +74,12 @@ const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
   };
 
   if (isLoggedIn) {
-    return <div>Welcome, {user.name}!</div>;
+    return (
+      <div>
+        <div>Welcome, {user.name}!</div>
+        <MyPosts />
+      </div>
+    );
   } else {
     return (
       <div>
