@@ -16,6 +16,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoggedIn: false,
+        user: null,
       };
     case 'SET_LOADING':
       return {
