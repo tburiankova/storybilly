@@ -6,9 +6,7 @@ const UserCard = ({ user }) => {
   return (
     <li>
       <Link to={`user/${_id}`}>
-        <div>
-          <img src={image} alt={name} />
-        </div>
+        <div>{user.image && <img src={image} alt={name} />}</div>
         <p>{name}</p>
         <p>Stories shared: {posts.length}</p>
       </Link>

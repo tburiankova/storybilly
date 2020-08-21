@@ -9,12 +9,12 @@ import Spinner from '../components/ui/Spinner';
 
 const UserPosts = ({ posts, userPosts, fetchPosts, loading }) => {
   useEffect(() => {
-    if (posts.length === 0) {
+    if (!posts) {
       fetchPosts();
     }
   }, []);
 
-  if (loading) {
+  if (loading || !posts) {
     return <Spinner />;
   }
 

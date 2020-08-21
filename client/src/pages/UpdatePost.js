@@ -12,6 +12,7 @@ import { useForm } from '../hooks/useForm';
 import Spinner from '../components/ui/Spinner';
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
+import ImageUpload from '../components/forms/ImageUpload';
 
 const UpdatePost = ({
   posts,
@@ -24,7 +25,7 @@ const UpdatePost = ({
   const history = useHistory();
 
   useEffect(() => {
-    if (posts.length === 0) {
+    if (!posts) {
       fetchPosts();
     }
   }, []);
@@ -69,7 +70,7 @@ const UpdatePost = ({
     }
   }, [setFormData, post]);
 
-  if (loading) {
+  if (loading || !posts) {
     return <Spinner />;
   }
 
@@ -80,16 +81,21 @@ const UpdatePost = ({
   const updatePostHandler = async (e) => {
     e.preventDefault();
 
-    const updatedPost = {
-      title: formState.inputs.title.value,
-      content: formState.inputs.content.value,
-      image: formState.inputs.image.value,
-    };
+    // const updatedPost = {
+    //   title: formState.inputs.title.value,
+    //   content: formState.inputs.content.value,
+    //   image: formState.inputs.image.value,
+    // };
+
+    const formData = new FormData();
+    formData.append('title', formState.inputs.title.value);
+    formData.append('content', formState.inputs.content.value);
+    formData.append('image', formState.inputs.image.value);
 
     try {
       const response = await axios.patch(
         `${process.env.REACT_APP_BACKEND_URL}/posts/${post._id}`,
-        updatedPost
+        formData
       );
       fetchPosts();
       showMessage(response.data.message);
@@ -136,14 +142,7 @@ const UpdatePost = ({
               value={post.content}
               valid={true}
             />
-            <Input
-              id="image"
-              label="Image"
-              validators={[]}
-              onInput={inputHandler}
-              value={post.image}
-              valid
-            />
+            <ImageUpload id="image" onInput={inputHandler} />
             <Button type="submit" disabled={!formState.isFormValid}>
               Update Story
             </Button>

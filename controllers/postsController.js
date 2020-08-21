@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 
@@ -68,9 +69,14 @@ exports.createPost = async (req, res, next) => {
     );
   }
 
-  const { title, content, image, author } = req.body;
+  const { title, content, author } = req.body;
 
-  const newPost = new Post({ title, content, image, author });
+  const newPost = new Post({
+    title,
+    content,
+    image: req.file ? req.file.path : null,
+    author,
+  });
 
   let user;
 
@@ -113,7 +119,7 @@ exports.updatePost = async (req, res, next) => {
     );
   }
 
-  const { title, content, image, author } = req.body;
+  const { title, content } = req.body;
   const postId = req.params.id;
   let post;
   try {
@@ -130,7 +136,7 @@ exports.updatePost = async (req, res, next) => {
 
   post.title = title;
   post.content = content;
-  post.image = image;
+  post.image = req.file ? req.file.path : null;
 
   try {
     await post.save();
@@ -157,6 +163,8 @@ exports.deletePost = async (req, res, next) => {
     return next(new HttpError('Post not found', 404));
   }
 
+  const imagePath = post.image;
+
   try {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -169,6 +177,13 @@ exports.deletePost = async (req, res, next) => {
       new HttpError('Something went wrong, please try again later', 500)
     );
   }
+
+  if (post.image) {
+    fs.unlink(imagePath, (err) => {
+      console.log(err);
+    });
+  }
+
   res.json({
     message: 'Post successfully deleted',
   });

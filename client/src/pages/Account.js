@@ -8,9 +8,11 @@ import {
 } from '../utils/validators';
 import { useForm } from '../hooks/useForm';
 import { signup, login } from '../redux/actions/authActions';
+import { fetchUsers } from '../redux/actions/dataActions';
 
 import Button from '../components/forms/Button';
 import Input from '../components/forms/Input';
+import ImageUpload from '../components/forms/ImageUpload';
 import Spinner from '../components/ui/Spinner';
 import MyPosts from '../components/posts/MyPosts';
 
@@ -40,12 +42,12 @@ const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
       };
       login(user);
     } else {
-      const newUser = {
-        name: formState.inputs.name.value,
-        email: formState.inputs.email.value,
-        password: formState.inputs.email.value,
-      };
-      signup(newUser);
+      const formData = new FormData();
+      formData.append('name', formState.inputs.name.value);
+      formData.append('email', formState.inputs.email.value);
+      formData.append('password', formState.inputs.password.value);
+      formData.append('image', formState.inputs.image.value);
+      signup(formData);
     }
   };
 
@@ -55,6 +57,7 @@ const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
         {
           ...formState.inputs,
           name: undefined,
+          image: undefined,
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -64,6 +67,10 @@ const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
           name: {
             value: '',
             isValid: false,
+          },
+          image: {
+            value: null,
+            isValid: true,
           },
           ...formState.inputs,
         },
@@ -77,6 +84,10 @@ const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
     return (
       <div>
         <div>Welcome, {user.name}!</div>
+        <img
+          src={`${process.env.REACT_APP_BASE_BACKEND_URL}/${user.image}`}
+          alt={user.name}
+        />
         <MyPosts />
       </div>
     );
@@ -112,6 +123,7 @@ const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
             errorMessage="Password must be at least 6 characters"
             onInput={inputHandler}
           />
+          {!loginMode && <ImageUpload id="image" onInput={inputHandler} />}
           <Button type="submit" disabled={!formState.isFormValid}>
             {loginMode ? 'Log In' : 'Sign Up'}
           </Button>
@@ -133,6 +145,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   login: (data) => dispatch(login(data)),
   signup: (data) => dispatch(signup(data)),
+  fetchUsers: () => dispatch(fetchUsers()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Account);

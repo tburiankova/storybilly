@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
-  users: [],
-  posts: [],
+  users: null,
+  posts: null,
   loading: false,
   error: false,
 };

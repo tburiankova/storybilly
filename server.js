@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -16,6 +17,12 @@ dotenv.config({ path: './config.env' });
 
 // body parser
 app.use(express.json());
+
+// serving file uploads
+app.use(
+  '/uploads/images',
+  express.static(path.join(__dirname, '/uploads/images'))
+);
 
 // set headers, enable cors
 // app.use(cors());
@@ -59,6 +66,13 @@ app.get('*', (req, res) => {
 
 // error handler
 app.use((err, req, res, next) => {
+  // rollback file if we had a validation error
+  if (req.file) {
+    fs.unlink(req.file.path, (err) => {
+      console.log(err);
+    });
+  }
+
   if (res.headerSent) {
     return next(err);
   }

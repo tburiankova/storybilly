@@ -10,7 +10,7 @@ export const signup = (data) => {
         `${process.env.REACT_APP_BACKEND_URL}/users/signup`,
         data
       );
-      dispatch({ type: 'LOGIN', payload: response.data.user._id });
+      dispatch({ type: 'LOGIN', payload: response.data.user });
       dispatch(showFlashMessage(response.data.message));
     } catch (err) {
       dispatch(showFlashMessage(err.response.data.message));
@@ -32,6 +32,7 @@ export const login = (data) => {
       dispatch(showFlashMessage(response.data.message));
     } catch (err) {
       dispatch(showFlashMessage(err.response.data.message));
+      console.log(err);
     } finally {
       dispatch({ type: 'UNSET_LOADING' });
     }

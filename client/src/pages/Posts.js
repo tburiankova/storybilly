@@ -4,13 +4,22 @@ import PropTypes from 'prop-types';
 
 import { fetchPosts } from '../redux/actions/dataActions';
 import PostsList from '../components/posts/PostsList';
+import Spinner from '../components/ui/Spinner';
 
 const Posts = ({ posts, fetchPosts }) => {
   useEffect(() => {
-    if (posts.length === 0) {
+    if (!posts) {
       fetchPosts();
     }
   }, []);
+
+  if (!posts) {
+    return <Spinner />;
+  }
+
+  if (posts.length === 0) {
+    return <p>No posts found...</p>;
+  }
 
   return (
     <div>
@@ -20,8 +29,8 @@ const Posts = ({ posts, fetchPosts }) => {
 };
 
 Posts.propTypes = {
-  posts: PropTypes.array.isRequired,
-  fetchPosts: PropTypes.func.isRequired,
+  posts: PropTypes.array,
+  fetchPosts: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

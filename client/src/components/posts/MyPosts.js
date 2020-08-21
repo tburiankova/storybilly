@@ -9,17 +9,17 @@ import Spinner from '../ui/Spinner';
 
 const MyPosts = ({ posts, loading, userPosts, fetchPosts }) => {
   useEffect(() => {
-    if (posts.length === 0) {
+    if (!posts) {
       fetchPosts();
     }
   }, []);
 
-  if (loading) {
+  if (loading || !posts) {
     return <Spinner />;
   }
 
   if (userPosts.length === 0) {
-    return <p>No posts found...</p>;
+    return <p>You haven't written any stories yet!</p>;
   }
 
   return (

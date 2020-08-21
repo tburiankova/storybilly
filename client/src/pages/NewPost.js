@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
+import ImageUpload from '../components/forms/ImageUpload';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../utils/validators';
 import { useForm } from '../hooks/useForm';
 import { showFlashMessage } from '../redux/actions/messageActions';
@@ -23,7 +24,7 @@ const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
       },
       image: {
         value: null,
-        isValid: false,
+        isValid: true,
       },
     },
     false
@@ -34,17 +35,16 @@ const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const newPost = {
-      title: formState.inputs.title.value,
-      content: formState.inputs.content.value,
-      image: formState.inputs.image.value,
-      author: user._id,
-    };
+    const formData = new FormData();
+    formData.append('title', formState.inputs.title.value);
+    formData.append('content', formState.inputs.content.value);
+    formData.append('image', formState.inputs.image.value);
+    formData.append('author', user._id);
 
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/posts`,
-        newPost
+        formData
       );
       fetchPosts();
       fetchUsers();
@@ -74,12 +74,10 @@ const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
           errorMessage="A story must have at least 10 characters"
           onInput={inputHandler}
         />
-        <Input
+        <ImageUpload
           id="image"
-          label="Image"
           onInput={inputHandler}
-          validators={[]}
-          valid
+          errorMessage="Please select an image"
         />
         <Button type="submit" disabled={!formState.isFormValid}>
           Post Story

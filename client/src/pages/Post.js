@@ -9,12 +9,12 @@ import Spinner from '../components/ui/Spinner';
 
 const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
   useEffect(() => {
-    if (posts.length === 0) {
+    if (!posts) {
       fetchPosts();
     }
   }, []);
 
-  if (loading || posts.length === 0) {
+  if (loading || !posts) {
     return <Spinner />;
   }
 
@@ -25,6 +25,12 @@ const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
   return (
     <>
       <h1>{post.title}</h1>
+      {post.image && (
+        <img
+          src={`${process.env.REACT_APP_BASE_BACKEND_URL}/${post.image}`}
+          alt={post.title}
+        />
+      )}
       <p>{post.content}</p>
       {isLoggedIn && user._id === post.author && (
         <Link to={`update/${post._id}`}>Manage Post</Link>

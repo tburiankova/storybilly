@@ -47,8 +47,7 @@ exports.signUp = async (req, res, next) => {
   const newUser = new User({
     name,
     email,
-    image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS6XQdIz7TggYHUTGbDbK8Ga8AZS7-Eb2aoHw&usqp=CAU',
+    image: req.file ? req.file.path : null,
     password,
     posts: [],
   });
@@ -56,7 +55,10 @@ exports.signUp = async (req, res, next) => {
   try {
     await newUser.save();
   } catch (err) {
-    return next(new HttpError('Signing up failed, please try again later'));
+    console.log(err);
+    return next(
+      new HttpError('Signing up failed, please try again later', 500)
+    );
   }
 
   res.status(201).json({
