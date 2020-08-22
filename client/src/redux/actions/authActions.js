@@ -38,11 +38,16 @@ export const login = (data) => {
         data
       );
       dispatch({ type: 'LOGIN', payload: response.data.user });
+
+      // 3 days
+      const tokenExpiration = new Date(new Date().getTime() + 259200000);
+
       localStorage.setItem(
         'storybilly',
         JSON.stringify({
           userId: response.data.user._id,
           token: response.data.user.token,
+          expiration: tokenExpiration.toISOString(),
         })
       );
       dispatch(showFlashMessage(response.data.message));
@@ -76,7 +81,7 @@ export const loadUser = (token) => {
 
       dispatch({ type: 'LOAD_USER', payload: response.data.user });
     } catch (err) {
-      dispatch(showFlashMessage(err.response.data.message));
+      console.log(err);
     } finally {
       dispatch({ type: 'UNSET_LOADING' });
     }

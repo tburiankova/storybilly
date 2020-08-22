@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   isLoggedIn: false,
   user: null,
-  isLoading: false,
+  loading: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -30,12 +30,12 @@ export default (state = INITIAL_STATE, action) => {
     case 'SET_LOADING':
       return {
         ...state,
-        isLoading: true,
+        loading: true,
       };
     case 'UNSET_LOADING':
       return {
         ...state,
-        isLoading: false,
+        loading: false,
       };
     default:
       return state;

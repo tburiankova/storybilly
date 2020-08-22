@@ -69,7 +69,8 @@ exports.createPost = async (req, res, next) => {
     );
   }
 
-  const { title, content, author } = req.body;
+  const { title, content } = req.body;
+  const author = req.userData.userId;
 
   const newPost = new Post({
     title,

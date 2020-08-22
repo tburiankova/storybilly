@@ -16,7 +16,7 @@ import ImageUpload from '../components/forms/ImageUpload';
 import Spinner from '../components/ui/Spinner';
 import MyPosts from '../components/posts/MyPosts';
 
-const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
+const Account = ({ login, signup, isLoggedIn, user, loading }) => {
   const [loginMode, setLoginMode] = useState(true);
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -95,7 +95,7 @@ const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
     return (
       <div>
         <h2>{loginMode ? 'Log In' : 'Sign Up'}</h2>
-        {isLoading && <Spinner />}
+        {loading && <Spinner />}
         <form onSubmit={onSubmitHandler}>
           {!loginMode && (
             <Input
@@ -139,7 +139,7 @@ const Account = ({ login, signup, isLoggedIn, user, isLoading }) => {
 const mapStateToProps = (state) => ({
   isLoggedIn: state.auth.isLoggedIn,
   user: state.auth.user,
-  isLoading: state.auth.isLoading,
+  loading: state.auth.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

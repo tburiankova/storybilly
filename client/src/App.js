@@ -24,11 +24,24 @@ import FlashMessage from './components/ui/FlashMessage';
 import { loadUser } from './redux/actions/authActions';
 
 function App({ isLoggedIn, showMessage, loadUser }) {
+  // check for token in localStorage - if present and valid -> auto-login
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('storybilly'));
 
-    if (userData && userData.token) {
+    if (
+      userData &&
+      userData.token &&
+      new Date(userData.expiration) > new Date()
+    ) {
       loadUser(userData.token);
+    }
+
+    if (
+      userData &&
+      userData.token &&
+      new Date(userData.expiration) < new Date()
+    ) {
+      localStorage.removeItem('storybilly');
     }
   }, []);
 
@@ -41,9 +54,9 @@ function App({ isLoggedIn, showMessage, loadUser }) {
         <Route path="/posts" component={Posts} exact />
         <Route path="/posts/new" component={NewPost} exact />
         <Route path="/user/:userId" component={UserPosts} exact />
+        <Route path="/post/:postId" component={Post} exact />
         <Route path="/user/post/:postId" component={Post} exact />
         <Route path="/user/post/update/:postId" component={UpdatePost} exact />
-        <Route path="/post/:postId" component={Post} exact />
         <Route path="/post/update/:postId" component={UpdatePost} exact />
         <Route path="/users" component={Users} exact />
         <Route path="/account" component={Account} exact />
@@ -56,8 +69,8 @@ function App({ isLoggedIn, showMessage, loadUser }) {
         <Route path="/" component={Index} exact />
         <Route path="/posts" component={Posts} exact />
         <Route path="/user/:userId" component={UserPosts} exact />
-        <Route path="/user/post/:postId" component={Post} exact />
         <Route path="/post/:postId" component={Post} exact />
+        <Route path="/user/post/:postId" component={Post} exact />
         <Route path="/users" component={Users} exact />
         <Route path="/account" component={Account} exact />
         <Redirect to="/account" />

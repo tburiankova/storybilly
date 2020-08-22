@@ -39,7 +39,6 @@ const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
     formData.append('title', formState.inputs.title.value);
     formData.append('content', formState.inputs.content.value);
     formData.append('image', formState.inputs.image.value);
-    formData.append('author', user._id);
 
     const headers = { Authorization: `Bearer ${user.token}` };
 
