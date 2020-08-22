@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -6,6 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
 
 import './App.css';
 
@@ -19,9 +20,18 @@ import Users from './pages/Users';
 import Account from './pages/Account';
 import Navigation from './components/navigation/Navigation';
 import FlashMessage from './components/ui/FlashMessage';
-import { connect } from 'react-redux';
 
-function App({ isLoggedIn, showMessage }) {
+import { loadUser } from './redux/actions/authActions';
+
+function App({ isLoggedIn, showMessage, loadUser }) {
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('storybilly'));
+
+    if (userData && userData.token) {
+      loadUser(userData.token);
+    }
+  }, []);
+
   let routes;
 
   if (isLoggedIn) {
@@ -76,4 +86,8 @@ const mapStateToProps = (state) => ({
   showMessage: state.message.showMessage,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  loadUser: (token) => dispatch(loadUser(token)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

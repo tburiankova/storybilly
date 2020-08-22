@@ -5,6 +5,7 @@ const router = express.Router();
 
 const usersController = require('../controllers/usersController');
 const fileUpload = require('../middlewares/fileUpload');
+const checkAuth = require('../middlewares/checkAuth');
 
 router.route('/').get(usersController.getUsers);
 
@@ -21,5 +22,7 @@ router
   );
 
 router.route('/login').post(usersController.logIn);
+
+router.route('/user').get(checkAuth, usersController.getUser);
 
 module.exports = router;

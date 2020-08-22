@@ -134,6 +134,10 @@ exports.updatePost = async (req, res, next) => {
     return next(new HttpError('Post not found', 404));
   }
 
+  if (post.author != req.userData.userId) {
+    return next(new HttpError('Updating this post was denied', 401));
+  }
+
   post.title = title;
   post.content = content;
   post.image = req.file ? req.file.path : null;
@@ -161,6 +165,10 @@ exports.deletePost = async (req, res, next) => {
 
   if (!post) {
     return next(new HttpError('Post not found', 404));
+  }
+
+  if (post.author._id != req.userData.userId) {
+    return next(new HttpError('Deleting this post was denied', 401));
   }
 
   const imagePath = post.image;

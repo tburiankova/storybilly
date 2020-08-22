@@ -81,21 +81,18 @@ const UpdatePost = ({
   const updatePostHandler = async (e) => {
     e.preventDefault();
 
-    // const updatedPost = {
-    //   title: formState.inputs.title.value,
-    //   content: formState.inputs.content.value,
-    //   image: formState.inputs.image.value,
-    // };
-
     const formData = new FormData();
     formData.append('title', formState.inputs.title.value);
     formData.append('content', formState.inputs.content.value);
     formData.append('image', formState.inputs.image.value);
 
+    const headers = { Authorization: `Bearer ${user.token}` };
+
     try {
       const response = await axios.patch(
         `${process.env.REACT_APP_BACKEND_URL}/posts/${post._id}`,
-        formData
+        formData,
+        { headers }
       );
       fetchPosts();
       showMessage(response.data.message);
@@ -106,9 +103,11 @@ const UpdatePost = ({
   };
 
   const deletePostHandler = async () => {
+    const headers = { Authorization: `Bearer ${user.token}` };
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/posts/${post._id}`
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${post._id}`,
+        { headers }
       );
       fetchPosts();
       showMessage(response.data.message);

@@ -41,17 +41,19 @@ const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
     formData.append('image', formState.inputs.image.value);
     formData.append('author', user._id);
 
+    const headers = { Authorization: `Bearer ${user.token}` };
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/posts`,
-        formData
+        formData,
+        { headers }
       );
       fetchPosts();
       fetchUsers();
       showMessage(response.data.message);
       history.push('/posts');
     } catch (err) {
-      console.log(err);
       showMessage(err.response.data.message);
     }
   };

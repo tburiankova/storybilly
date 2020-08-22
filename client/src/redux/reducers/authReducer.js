@@ -18,6 +18,15 @@ export default (state = INITIAL_STATE, action) => {
         isLoggedIn: false,
         user: null,
       };
+    case 'LOAD_USER':
+      return {
+        ...state,
+        isLoggedIn: true,
+        user: {
+          ...action.payload,
+          token: JSON.parse(localStorage.getItem('storybilly')).token,
+        },
+      };
     case 'SET_LOADING':
       return {
         ...state,
