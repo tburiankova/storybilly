@@ -1,17 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+
+import Logo from '../../assets/logo-black-2x.png';
 
 import NavLinks from './NavLinks';
+import SideDrawer from './SideDrawer';
+import Backdrop from '../ui/Backdrop';
 
-const Navigation = () => {
+import { Container, LogoImg } from './Navigation.styles';
+
+const Navigation = ({ history }) => {
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+
+  const openDrawer = () => {
+    setDrawerIsOpen(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerIsOpen(false);
+  };
+
+  history.listen(() => closeDrawer());
+
   return (
-    <div>
-      <h1>
-        <Link to="/">Storybilly</Link>
-      </h1>
-      <NavLinks />
-    </div>
+    <Container>
+      <SideDrawer drawerIsOpen={drawerIsOpen} />
+      {drawerIsOpen && <Backdrop onClick={closeDrawer} />}
+      <Link to="/">
+        <LogoImg src={Logo} alt="Storybilly" />
+      </Link>
+      <NavLinks openDrawer={openDrawer} />
+    </Container>
   );
 };
 
-export default Navigation;
+export default withRouter(Navigation);

@@ -9,6 +9,7 @@ import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 
 import './App.css';
+import { GlobalStyles } from './styles/globalStyles';
 
 import Index from './pages/Index';
 import Posts from './pages/Posts';
@@ -80,6 +81,7 @@ function App({ isLoggedIn, showMessage, loadUser }) {
 
   return (
     <Router>
+      <GlobalStyles />
       <Navigation />
       <CSSTransition
         in={showMessage}

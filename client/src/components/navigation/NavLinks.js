@@ -3,32 +3,38 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { logout } from '../../redux/actions/authActions';
+import { linksPublic, linksPrivate } from '../../utils/navLinks';
 
-const NavLinks = ({ isLoggedIn, logout }) => {
+import { Burger, Line, List } from './NavLinks.styles';
+
+const NavLinks = ({ isLoggedIn, logout, openDrawer }) => {
   return (
-    <ul>
-      <li>
-        <NavLink to="/users">Users</NavLink>
-      </li>
-      <li>
-        <NavLink to="/posts">Stories</NavLink>
-      </li>
-      {isLoggedIn && (
-        <>
-          <li>
-            <NavLink to="/posts/new">Add a story</NavLink>
-          </li>
-          <li>
-            <button onClick={logout}>Log Out</button>
-          </li>
-        </>
-      )}
-      {!isLoggedIn && (
-        <li>
-          <NavLink to="/account">Account</NavLink>
-        </li>
-      )}
-    </ul>
+    <>
+      <Burger onClick={openDrawer}>
+        <Line />
+        <Line />
+      </Burger>
+      <List>
+        <ul>
+          {linksPublic.map((link) => (
+            <li key={link.id}>
+              <NavLink to={link.path}>{link.name}</NavLink>
+            </li>
+          ))}
+          {isLoggedIn &&
+            linksPrivate.map((link) => (
+              <li key={link.id}>
+                <NavLink to={link.path}>{link.name}</NavLink>
+              </li>
+            ))}
+          {isLoggedIn && (
+            <li>
+              <button onClick={logout}>Log Out</button>
+            </li>
+          )}
+        </ul>
+      </List>
+    </>
   );
 };
 
