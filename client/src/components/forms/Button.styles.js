@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 
 export const StyledButton = styled.button`
+  display: block;
+  margin: .8rem 0;
   outline-color: var(--white);
   border-radius: 2rem;
   color: var(--greyDark);
@@ -28,5 +30,13 @@ export const StyledButton = styled.button`
     css`
       padding: 1rem 3rem;
       font-size: 1.3rem;
+      margin: 0.8rem auto;
     `}
+
+    ${(props) =>
+      props.danger &&
+      css`
+        background: var(--peach);
+        color: var(--white);
+      `}
 `;

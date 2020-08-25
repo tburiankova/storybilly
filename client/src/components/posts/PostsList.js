@@ -5,13 +5,19 @@ import PropTypes from 'prop-types';
 import PostCard from './PostCard';
 import Spinner from '../ui/Spinner';
 
+import { NotFound } from '../../styles/sharedStyles';
+
 const PostsList = ({ posts, loading, error, userPosts }) => {
   if (loading) {
-    return <Spinner />;
+    return <Spinner center />;
   }
 
   if (error) {
-    return <p>There has been an error, please try again later...</p>;
+    return (
+      <NotFound>
+        <p>There has been an error, please try again later...</p>
+      </NotFound>
+    );
   }
 
   return (

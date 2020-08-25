@@ -102,23 +102,69 @@ export const GlobalStyles = createGlobalStyle`
         margin-bottom: 1.6rem;
     }
 
+    h1 {
+        font-size: 2.4rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.9rem;
+    }
+
+    h4 {
+        font-size: 1.8rem;
+    }
+
     p {
         line-height: 163%;
+        margin-bottom: .8rem;
     }
 
     p, li, span {
         font-family: var(--fontP);
         font-weight: 400;
+        font-size: 1.5rem;
     }
 
     ul {
         list-style: none;
     }
 
+    ol {
+        margin-left: 1.6rem;
+        margin-bottom: 2.4rem;
+    }
+
+    li {
+        margin-left: .4rem;
+        margin-bottom: .4rem;
+    }
+
     button {
         background: none;
         border: none;
+    }
 
+    blockquote {
+        border-left: 5px solid var(--white);
+        border-radius: 2px;
+        margin: 2.4rem 0 2.4rem .8rem;
+        padding: .8rem;
+        background-color: var(--whiteTrans);
+        box-shadow: 0px 30px 80px rgba(0, 0, 0, 0.06);
+        font-style: italic;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--lilacDark);
+
+        &:hover {
+            color: var(--lilac);
+        }
     }
 
 `;

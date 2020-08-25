@@ -14,6 +14,8 @@ import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
 import ImageUpload from '../components/forms/ImageUpload';
 
+import { Container, Flexbox, StyledLink } from '../styles/sharedStyles';
+
 const UpdatePost = ({
   posts,
   post,
@@ -118,7 +120,13 @@ const UpdatePost = ({
   };
 
   return (
-    <div>
+    <Container>
+      <h1>Update Your Story</h1>
+      <Flexbox center>
+        <StyledLink as="button" onClick={() => alert('hey!')} small>
+          Markdown cheatsheet
+        </StyledLink>
+      </Flexbox>
       {post && (
         <>
           <form onSubmit={updatePostHandler}>
@@ -142,18 +150,27 @@ const UpdatePost = ({
               valid={true}
             />
             <ImageUpload id="image" onInput={inputHandler} />
-            <Button type="submit" disabled={!formState.isFormValid}>
+            <Button
+              type="submit"
+              disabled={!formState.isFormValid}
+              size="medium"
+            >
               Update Story
             </Button>
           </form>
           {user._id === post.author._id && (
-            <Button type="button" onClick={deletePostHandler}>
+            <Button
+              type="button"
+              onClick={deletePostHandler}
+              size="medium"
+              danger
+            >
               Delete Story
             </Button>
           )}
         </>
       )}
-    </div>
+    </Container>
   );
 };
 

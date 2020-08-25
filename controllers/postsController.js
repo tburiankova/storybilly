@@ -144,7 +144,7 @@ exports.updatePost = async (req, res, next) => {
 
   post.title = title;
   post.content = content;
-  post.image = req.file ? req.file.path : null;
+  post.image = req.file ? req.file.path : post.image;
 
   try {
     await post.save();

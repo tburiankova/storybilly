@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
 import { fetchPosts } from '../redux/actions/dataActions';
 import { selectPost } from '../redux/selectors';
 
 import Spinner from '../components/ui/Spinner';
+
+import { NotFound, StyledLink, Container } from '../styles/sharedStyles';
+import { Heading, ImageWrapper, Image } from './Post.styles';
 
 const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
   console.log(post);
@@ -16,27 +20,33 @@ const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
   }, []);
 
   if (loading || !posts) {
-    return <Spinner />;
+    return <Spinner center />;
   }
 
   if (!post) {
-    return <p>No post found...</p>;
+    return (
+      <NotFound>
+        <p>No post found...</p>
+      </NotFound>
+    );
   }
 
   return (
-    <>
-      <h1>{post.title}</h1>
+    <Container>
+      <Heading>{post.title}</Heading>
       {post.image && (
-        <img
-          src={`${process.env.REACT_APP_BASE_BACKEND_URL}/${post.image}`}
-          alt={post.title}
-        />
+        <ImageWrapper>
+          <Image
+            src={`${process.env.REACT_APP_BASE_BACKEND_URL}/${post.image}`}
+            alt={post.title}
+          />
+        </ImageWrapper>
       )}
-      <p>{post.content}</p>
+      <ReactMarkdown source={post.content}></ReactMarkdown>
       {isLoggedIn && user._id === post.author._id && (
-        <Link to={`update/${post._id}`}>Manage Post</Link>
+        <StyledLink to={`update/${post._id}`}>Manage Post</StyledLink>
       )}
-    </>
+    </Container>
   );
 };
 

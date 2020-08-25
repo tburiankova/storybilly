@@ -74,7 +74,7 @@ function App({ isLoggedIn, showMessage, loadUser }) {
         <Route path="/user/post/:postId" component={Post} exact />
         <Route path="/users" component={Users} exact />
         <Route path="/account" component={Account} exact />
-        <Redirect to="/account" />
+        <Redirect to="/" />
       </Switch>
     );
   }

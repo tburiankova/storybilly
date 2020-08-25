@@ -6,6 +6,8 @@ import { fetchPosts } from '../redux/actions/dataActions';
 import PostsList from '../components/posts/PostsList';
 import Spinner from '../components/ui/Spinner';
 
+import { NotFound } from '../styles/sharedStyles';
+
 const Posts = ({ posts, fetchPosts }) => {
   useEffect(() => {
     if (!posts) {
@@ -14,11 +16,15 @@ const Posts = ({ posts, fetchPosts }) => {
   }, []);
 
   if (!posts) {
-    return <Spinner />;
+    return <Spinner center />;
   }
 
   if (posts.length === 0) {
-    return <p>No posts found...</p>;
+    return (
+      <NotFound>
+        <p>No posts found...</p>
+      </NotFound>
+    );
   }
 
   return (

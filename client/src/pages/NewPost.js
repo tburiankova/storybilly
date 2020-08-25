@@ -11,6 +11,8 @@ import { useForm } from '../hooks/useForm';
 import { showFlashMessage } from '../redux/actions/messageActions';
 import { fetchPosts, fetchUsers } from '../redux/actions/dataActions';
 
+import { Container, Flexbox, StyledLink } from '../styles/sharedStyles';
+
 const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
   const [formState, inputHandler] = useForm(
     {
@@ -58,7 +60,13 @@ const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
   };
 
   return (
-    <div>
+    <Container>
+      <h1>Create a New Story</h1>
+      <Flexbox center>
+        <StyledLink as="button" onClick={() => alert('hey!')} small>
+          Markdown cheatsheet
+        </StyledLink>
+      </Flexbox>
       <form onSubmit={onSubmitHandler}>
         <Input
           id="title"
@@ -80,11 +88,11 @@ const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
           onInput={inputHandler}
           errorMessage="Please select an image"
         />
-        <Button type="submit" disabled={!formState.isFormValid}>
+        <Button type="submit" disabled={!formState.isFormValid} size="medium">
           Post Story
         </Button>
       </form>
-    </div>
+    </Container>
   );
 };
 
