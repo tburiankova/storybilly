@@ -146,7 +146,7 @@ const UpdatePost = ({
               Update Story
             </Button>
           </form>
-          {user._id === post.author && (
+          {user._id === post.author._id && (
             <Button type="button" onClick={deletePostHandler}>
               Delete Story
             </Button>

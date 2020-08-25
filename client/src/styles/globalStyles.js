@@ -106,7 +106,7 @@ export const GlobalStyles = createGlobalStyle`
         line-height: 163%;
     }
 
-    p, li {
+    p, li, span {
         font-family: var(--fontP);
         font-weight: 400;
     }

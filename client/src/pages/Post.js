@@ -8,6 +8,7 @@ import { selectPost } from '../redux/selectors';
 import Spinner from '../components/ui/Spinner';
 
 const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
+  console.log(post);
   useEffect(() => {
     if (!posts) {
       fetchPosts();
@@ -32,7 +33,7 @@ const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
         />
       )}
       <p>{post.content}</p>
-      {isLoggedIn && user._id === post.author && (
+      {isLoggedIn && user._id === post.author._id && (
         <Link to={`update/${post._id}`}>Manage Post</Link>
       )}
     </>

@@ -20,7 +20,7 @@ export const Drawer = styled.aside`
   justify-content: center;
 
   transform: translateX(
-    ${({ state }) => (state === 'entering' || state === 'entered' ? 0 : 100)}%
+    ${({ state }) => (state === 'entering' || state === 'entered' ? 0 : 150)}%
   );
 `;
 

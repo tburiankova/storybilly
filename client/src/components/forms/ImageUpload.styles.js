@@ -8,4 +8,5 @@ export const ImagePreview = styled.div`
 export const Image = styled.img`
   width: 100%;
   box-shadow: 0px 30px 80px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -9,12 +9,12 @@ import {
 } from '../utils/validators';
 import { useForm } from '../hooks/useForm';
 import { signup, login } from '../redux/actions/authActions';
-import { fetchUsers } from '../redux/actions/dataActions';
 
 import Button from '../components/forms/Button';
 import Input from '../components/forms/Input';
 import ImageUpload from '../components/forms/ImageUpload';
 import Spinner from '../components/ui/Spinner';
+import Account from '../components/users/Account';
 
 import {
   Cta,
@@ -26,11 +26,19 @@ import {
   SwitchText,
 } from './Index.styles';
 
-const Index = ({ signup, login, fetchUsers, loading }) => {
+const Index = ({ signup, login, loading, isLoggedIn }) => {
   const [loginMode, setLoginMode] = useState(false);
+
+  useEffect(() => {
+    console.log(formState.inputs);
+  }, [loginMode]);
 
   const [formState, inputHandler, setFormData] = useForm(
     {
+      name: {
+        value: '',
+        isValid: false,
+      },
       email: {
         value: '',
         isValid: false,
@@ -38,6 +46,10 @@ const Index = ({ signup, login, fetchUsers, loading }) => {
       password: {
         value: '',
         isValid: false,
+      },
+      image: {
+        value: null,
+        isValid: true,
       },
     },
     false
@@ -74,6 +86,7 @@ const Index = ({ signup, login, fetchUsers, loading }) => {
     } else {
       setFormData(
         {
+          ...formState.inputs,
           name: {
             value: '',
             isValid: false,
@@ -82,13 +95,16 @@ const Index = ({ signup, login, fetchUsers, loading }) => {
             value: null,
             isValid: true,
           },
-          ...formState.inputs,
         },
         false
       );
     }
     setLoginMode((prevMode) => !prevMode);
   };
+
+  if (isLoggedIn) {
+    return <Account />;
+  }
 
   return (
     <Cta>
@@ -148,12 +164,12 @@ const Index = ({ signup, login, fetchUsers, loading }) => {
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
+  isLoggedIn: state.auth.isLoggedIn,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   signup: (data) => dispatch(signup(data)),
   login: (data) => dispatch(login(data)),
-  fetchUsers: () => dispatch(fetchUsers()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);
