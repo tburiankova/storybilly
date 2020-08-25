@@ -1,13 +1,13 @@
 export const linksPublic = [
   {
     id: 1,
-    name: 'Users',
-    path: '/users',
+    name: 'Stories',
+    path: '/posts',
   },
   {
     id: 2,
-    name: 'Stories',
-    path: '/posts',
+    name: 'Storytellers',
+    path: '/users',
   },
 ];
 

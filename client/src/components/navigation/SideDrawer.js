@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -7,31 +7,43 @@ import { Transition } from 'react-transition-group';
 import { logout } from '../../redux/actions/authActions';
 import { linksPublic, linksPrivate } from '../../utils/navLinks';
 
-import { Drawer } from './SideDrawer.styles';
+import { Drawer, List, ListItem, Divider } from './SideDrawer.styles';
+
+import Login from './Login';
 
 const SideDrawer = ({ drawerIsOpen, isLoggedIn, logout }) => {
   const content = (
     <Transition in={drawerIsOpen} timeout={500}>
       {(state) => (
         <Drawer state={state}>
-          <ul>
+          <List>
             {linksPublic.map((link) => (
-              <li key={link.id}>
-                <NavLink to={link.path}>{link.name}</NavLink>
-              </li>
+              <Fragment key={link.id}>
+                <ListItem>
+                  <NavLink to={link.path}>{link.name}</NavLink>
+                </ListItem>
+                <Divider />
+              </Fragment>
             ))}
             {isLoggedIn &&
               linksPrivate.map((link) => (
-                <li key={link.id}>
-                  <NavLink to={link.path}>{link.name}</NavLink>
-                </li>
+                <Fragment key={link.id}>
+                  <ListItem>
+                    <NavLink to={link.path}>{link.name}</NavLink>
+                  </ListItem>
+                  <Divider />
+                </Fragment>
               ))}
             {isLoggedIn && (
-              <li>
-                <button onClick={logout}>Log Out</button>
-              </li>
+              <>
+                <ListItem>
+                  <button onClick={logout}>Log Out</button>
+                </ListItem>
+                <Divider />
+              </>
             )}
-          </ul>
+            {!isLoggedIn && <Login />}
+          </List>
         </Drawer>
       )}
     </Transition>

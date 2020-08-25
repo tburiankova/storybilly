@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 
 import Button from './Button';
 
+import { ImagePreview, Image } from './ImageUpload.styles';
+
 const ImageUpload = ({ id, onInput, errorMessage }) => {
   const [file, setFile] = useState();
   const [preview, setPreview] = useState();
@@ -40,7 +42,7 @@ const ImageUpload = ({ id, onInput, errorMessage }) => {
   };
 
   return (
-    <div>
+    <>
       <input
         type="file"
         id={id}
@@ -49,14 +51,15 @@ const ImageUpload = ({ id, onInput, errorMessage }) => {
         ref={filePickerRef}
         onChange={onChangeHandler}
       />
-      <div>
-        <div>{preview && <img src={preview} alt="Preview" />}</div>
-        <Button type="button" onClick={pickImageHandler}>
-          Pick Image
-        </Button>
-      </div>
+      <ImagePreview>
+        {preview && <Image src={preview} alt="Preview" />}
+      </ImagePreview>
+      <Button type="button" onClick={pickImageHandler} size="small">
+        Pick an Image
+      </Button>
+
       {!valid && <p>{errorMessage}</p>}
-    </div>
+    </>
   );
 };
 

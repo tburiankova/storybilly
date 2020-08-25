@@ -1,6 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 
 import { validate } from '../../utils/validators';
+import { StyledInput, TextArea, Label, ErrorMessage } from './Input.styles';
 
 const inputReducer = (state, action) => {
   switch (action.type) {
@@ -32,6 +33,7 @@ const Input = ({
   validators,
   onInput,
   valid,
+  size,
 }) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: value || '',
@@ -53,7 +55,7 @@ const Input = ({
 
   const input =
     inputType === 'textarea' ? (
-      <textarea
+      <TextArea
         id={id}
         rows={rows || 20}
         onChange={onChangeHandler}
@@ -61,21 +63,28 @@ const Input = ({
         value={inputState.value}
       />
     ) : (
-      <input
+      <StyledInput
         id={id}
         type={type}
         placeholder={placeholder}
         onChange={onChangeHandler}
         onBlur={onBlurHandler}
         value={inputState.value}
+        size={size}
       />
     );
   return (
-    <div>
-      <label htmlFor={id}>{label}</label>
+    <>
+      {size !== 'small' && (
+        <Label htmlFor={id} size={size}>
+          {label}
+        </Label>
+      )}
       {input}
-      {!inputState.isValid && inputState.isTouched && <p>{errorMessage}</p>}
-    </div>
+      {!inputState.isValid && inputState.isTouched && (
+        <ErrorMessage size={size}>{errorMessage}</ErrorMessage>
+      )}
+    </>
   );
 };
 
