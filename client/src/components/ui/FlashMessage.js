@@ -3,22 +3,14 @@ import { connect } from 'react-redux';
 
 import { hideFlashMessage } from '../../redux/actions/messageActions';
 
-const styles = {
-  position: 'absolute',
-  top: '200px',
-  left: '50%',
-  transform: 'translateX(-50%)',
-  backgroundColor: 'black',
-  color: 'white',
-  padding: '20px 30px',
-};
+import { Container, Message } from './FlashMessage.styles';
 
 const FlashMessage = ({ message, showMessage, hideMessage }) => {
   if (showMessage) {
     return (
-      <div style={styles} onClick={hideMessage}>
-        {message}
-      </div>
+      <Container onClick={hideMessage}>
+        <Message>{message}</Message>
+      </Container>
     );
   } else {
     return null;

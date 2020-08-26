@@ -71,6 +71,7 @@ export const GlobalStyles = createGlobalStyle`
         --white: #ffffff;
         --offWhite: #F3F8FF;
         --mint: #CCF8F2;
+        --mintLight: #E1FDF9;
         --lilac: #BCC1F7;
         --lilacDark: #696CC5;
         --peach: #F8A5A5;
