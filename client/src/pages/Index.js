@@ -20,7 +20,6 @@ import {
   Cta,
   Heading,
   Text,
-  ButtonWrapper,
   Switch,
   SwitchButton,
   SwitchText,
@@ -138,11 +137,14 @@ const Index = ({ signup, login, user, loading, isLoggedIn }) => {
           onInput={inputHandler}
         />
         {!loginMode && <ImageUpload id="image" onInput={inputHandler} />}
-        <ButtonWrapper>
-          <Button type="submit" disabled={!formState.isFormValid} size="medium">
-            {loginMode ? 'Log In' : 'Sign Up'}
-          </Button>
-        </ButtonWrapper>
+        <Button
+          type="submit"
+          disabled={!formState.isFormValid}
+          size="medium"
+          center
+        >
+          {loginMode ? 'Log In' : 'Sign Up'}
+        </Button>
         <Switch>
           <SwitchText>
             {loginMode

@@ -2,7 +2,15 @@ import React from 'react';
 
 import { StyledButton } from './Button.styles';
 
-const Button = ({ disabled, type, children, onClick, size, danger }) => {
+const Button = ({
+  disabled,
+  type,
+  children,
+  onClick,
+  size,
+  danger,
+  center,
+}) => {
   return (
     <StyledButton
       type={type}
@@ -10,6 +18,7 @@ const Button = ({ disabled, type, children, onClick, size, danger }) => {
       onClick={onClick}
       size={size}
       danger={danger}
+      center={center}
     >
       {children}
     </StyledButton>

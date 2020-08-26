@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Cta = styled.div`
   width: 90%;
@@ -18,12 +18,6 @@ export const Text = styled.p`
   font-size: 1.5rem;
   color: var(--greyDarkest);
   margin-bottom: 1.6rem;
-`;
-
-export const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 1.6rem 0;
 `;
 
 export const Switch = styled.div`

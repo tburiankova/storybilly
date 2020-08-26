@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -16,6 +16,8 @@ import ImageUpload from '../components/forms/ImageUpload';
 
 import { Container, Flexbox, StyledLink } from '../styles/sharedStyles';
 
+import Modal from '../components/ui/Modal';
+
 const UpdatePost = ({
   posts,
   post,
@@ -25,6 +27,8 @@ const UpdatePost = ({
   showMessage,
 }) => {
   const history = useHistory();
+  const [showModal, setShowModal] = useState(false);
+  const [showCheatsheet, setShowCheatsheet] = useState(false);
 
   useEffect(() => {
     if (!posts) {
@@ -119,58 +123,87 @@ const UpdatePost = ({
     }
   };
 
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const openCheatsheet = () => {
+    setShowCheatsheet(true);
+  };
+
+  const closeCheatsheet = () => {
+    setShowCheatsheet(false);
+  };
+
   return (
-    <Container>
-      <h1>Update Your Story</h1>
-      <Flexbox center>
-        <StyledLink as="button" onClick={() => alert('hey!')} small>
-          Markdown cheatsheet
-        </StyledLink>
-      </Flexbox>
-      {post && (
-        <>
-          <form onSubmit={updatePostHandler}>
-            <Input
-              id="title"
-              label="Title"
-              validators={[VALIDATOR_REQUIRE()]}
-              errorMessage="Please enter a valid title"
-              onInput={inputHandler}
-              value={post.title}
-              valid={true}
-            />
-            <Input
-              id="content"
-              inputType="textarea"
-              label="Content"
-              validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(10)]}
-              errorMessage="A story must have at least 10 characters"
-              onInput={inputHandler}
-              value={post.content}
-              valid={true}
-            />
-            <ImageUpload id="image" onInput={inputHandler} />
-            <Button
-              type="submit"
-              disabled={!formState.isFormValid}
-              size="medium"
-            >
-              Update Story
-            </Button>
-          </form>
-          {user._id === post.author._id && (
-            <Button
-              type="button"
-              onClick={deletePostHandler}
-              size="medium"
-              danger
-            >
-              Delete Story
-            </Button>
-          )}
-        </>
-      )}
-    </Container>
+    <>
+      <Modal
+        showModal={showModal}
+        confirm
+        heading="Are you sure?"
+        message="Do you really want to delete this post?"
+        closeModal={closeModal}
+        confirmModal={deletePostHandler}
+      />
+      <Modal
+        heading="Markdown Cheatsheet"
+        message="How to write in markdown?"
+        cheatsheet
+        closeModal={closeCheatsheet}
+        showModal={showCheatsheet}
+      />
+      <Container>
+        <h1>Update Your Story</h1>
+        <Flexbox center>
+          <StyledLink as="button" onClick={openCheatsheet} small>
+            Markdown cheatsheet
+          </StyledLink>
+        </Flexbox>
+        {post && (
+          <>
+            <form onSubmit={updatePostHandler}>
+              <Input
+                id="title"
+                label="Title"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorMessage="Please enter a valid title"
+                onInput={inputHandler}
+                value={post.title}
+                valid={true}
+              />
+              <Input
+                id="content"
+                inputType="textarea"
+                label="Content"
+                validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(10)]}
+                errorMessage="A story must have at least 10 characters"
+                onInput={inputHandler}
+                value={post.content}
+                valid={true}
+              />
+              <ImageUpload id="image" onInput={inputHandler} />
+              <Button
+                type="submit"
+                disabled={!formState.isFormValid}
+                size="medium"
+                center
+              >
+                Update Story
+              </Button>
+            </form>
+            {user._id === post.author._id && (
+              <Button type="button" onClick={openModal} size="medium" danger>
+                Delete Story
+              </Button>
+            )}
+          </>
+        )}
+      </Container>
+    </>
   );
 };
 

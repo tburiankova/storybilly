@@ -19,9 +19,14 @@ export const Drawer = styled.aside`
   display: flex;
   justify-content: center;
 
-  transform: translateX(
-    ${({ state }) => (state === 'entering' || state === 'entered' ? 0 : 150)}%
-  );
+  ${(props) =>
+    props.state === 'entered' || props.state === 'entering'
+      ? css`
+          transform: translateX(0%);
+        `
+      : css`
+          transform: translateX(150%);
+        `}
 `;
 
 export const List = styled.ul`
@@ -57,3 +62,7 @@ export const SignUp = styled.p`
   color: var(--white);
   font-size: 1.3rem;
 `;
+
+/* transform: translateX(
+  ${({ state }) => (state === 'entering' || state === 'entered' ? 0 : 150)}%
+); */
