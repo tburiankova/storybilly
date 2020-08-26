@@ -5,7 +5,6 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 
 import './App.css';
@@ -83,14 +82,7 @@ function App({ isLoggedIn, showMessage, loadUser }) {
     <Router>
       <GlobalStyles />
       <Navigation />
-      <CSSTransition
-        in={showMessage}
-        timeout={1000}
-        classNames="fade"
-        unmountOnExit
-      >
-        <FlashMessage />
-      </CSSTransition>
+      <FlashMessage />
       {routes}
     </Router>
   );
