@@ -20,6 +20,6 @@ export const linksPrivate = [
   {
     id: 2,
     name: 'Account',
-    path: '/account',
+    path: '/',
   },
 ];

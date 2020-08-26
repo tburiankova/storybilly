@@ -52,3 +52,8 @@ export const Divider = styled.div`
   background-color: var(--whiteTrans);
   margin-bottom: 2.4rem;
 `;
+
+export const SignUp = styled.p`
+  color: var(--white);
+  font-size: 1.3rem;
+`;

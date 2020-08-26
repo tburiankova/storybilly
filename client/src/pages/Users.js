@@ -6,6 +6,8 @@ import { fetchUsers } from '../redux/actions/dataActions';
 import UsersList from '../components/users/UsersList';
 import Spinner from '../components/ui/Spinner';
 
+import { Container } from '../styles/sharedStyles';
+
 const Users = ({ users, fetchUsers }) => {
   useEffect(() => {
     if (!users) {
@@ -14,7 +16,7 @@ const Users = ({ users, fetchUsers }) => {
   }, []);
 
   if (!users) {
-    return <Spinner />;
+    return <Spinner center />;
   }
 
   if (users.length === 0) {
@@ -22,9 +24,9 @@ const Users = ({ users, fetchUsers }) => {
   }
 
   return (
-    <div>
+    <Container>
       <UsersList users={users} />
-    </div>
+    </Container>
   );
 };
 

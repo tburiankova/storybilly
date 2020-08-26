@@ -9,6 +9,7 @@ import Spinner from '../components/ui/Spinner';
 import { NotFound } from '../styles/sharedStyles';
 
 const Posts = ({ posts, fetchPosts }) => {
+  console.log('rendered Posts');
   useEffect(() => {
     if (!posts) {
       fetchPosts();

@@ -7,7 +7,7 @@ import Avatar from '../users/Avatar';
 import { CardWrapper, Card, Title, Author, Name } from './PostCard.styles';
 
 const PostCard = ({ post }) => {
-  const randomNumber = Math.floor(Math.random() * 7);
+  const randomNumber = Math.floor(Math.random() * 8);
 
   return (
     <CardWrapper to={`post/${post._id}`}>

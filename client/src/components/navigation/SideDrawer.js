@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Transition } from 'react-transition-group';
 
 import { logout } from '../../redux/actions/authActions';
 import { linksPublic, linksPrivate } from '../../utils/navLinks';
 
-import { Drawer, List, ListItem, Divider } from './SideDrawer.styles';
+import { Drawer, List, ListItem, Divider, SignUp } from './SideDrawer.styles';
 
 import Login from './Login';
 
@@ -42,7 +42,14 @@ const SideDrawer = ({ drawerIsOpen, isLoggedIn, logout }) => {
                 <Divider />
               </>
             )}
-            {!isLoggedIn && <Login />}
+            {!isLoggedIn && (
+              <>
+                <Login />
+                <SignUp>
+                  Don't have an account?<Link to="/"> Sign Up</Link>
+                </SignUp>
+              </>
+            )}
           </List>
         </Drawer>
       )}

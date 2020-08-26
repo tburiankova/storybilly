@@ -1,16 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Avatar from './Avatar';
+
+import { Card, Text } from './UserCard.styles';
+
 const UserCard = ({ user }) => {
   const { _id, name, image, posts } = user;
+  const randomNumber = Math.floor(Math.random() * 8);
   return (
-    <li>
-      <Link to={`user/${_id}`}>
-        <div>{user.image && <img src={image} alt={name} />}</div>
-        <p>{name}</p>
-        <p>Stories shared: {posts.length}</p>
-      </Link>
-    </li>
+    <Link to={`user/${_id}`}>
+      <Card number={randomNumber}>
+        <Avatar src={image} />
+        <Text>{name}</Text>
+        <Text light>Stories told: {posts.length}</Text>
+      </Card>
+    </Link>
   );
 };
 

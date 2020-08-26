@@ -4,21 +4,28 @@ import { connect } from 'react-redux';
 import UserCard from './UserCard';
 import Spinner from '../ui/Spinner';
 
+import { List } from './UserList.styles';
+import { NotFound } from '../../styles/sharedStyles';
+
 const UsersList = ({ users, loading, error }) => {
   if (loading) {
-    return <Spinner />;
+    return <Spinner center />;
   }
 
   if (error) {
-    return <p>There has been an error, please try again later...</p>;
+    return (
+      <NotFound>
+        <p>There has been an error, please try again later...</p>
+      </NotFound>
+    );
   }
 
   return (
-    <ul>
+    <List>
       {users.map((user) => (
         <UserCard key={user._id} user={user} />
       ))}
-    </ul>
+    </List>
   );
 };
 

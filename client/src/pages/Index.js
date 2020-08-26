@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -26,12 +26,8 @@ import {
   SwitchText,
 } from './Index.styles';
 
-const Index = ({ signup, login, loading, isLoggedIn }) => {
+const Index = ({ signup, login, user, loading, isLoggedIn }) => {
   const [loginMode, setLoginMode] = useState(false);
-
-  useEffect(() => {
-    console.log(formState.inputs);
-  }, [loginMode]);
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -163,6 +159,7 @@ const Index = ({ signup, login, loading, isLoggedIn }) => {
 };
 
 const mapStateToProps = (state) => ({
+  user: state.auth.user,
   loading: state.auth.loading,
   isLoggedIn: state.auth.isLoggedIn,
 });
