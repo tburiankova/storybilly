@@ -4,10 +4,11 @@ import UserAvatar from '../../assets/user.png';
 
 import { AvatarWrapper, AvatarImage } from './Avatar.styles';
 
-const Avatar = ({ src, tiny }) => {
+const Avatar = ({ src, size }) => {
+  const imageSrc = src ? `/${src}` : UserAvatar;
   return (
-    <AvatarWrapper tiny={tiny}>
-      <AvatarImage src={src ? src : UserAvatar} />
+    <AvatarWrapper size={size}>
+      <AvatarImage src={imageSrc} />
     </AvatarWrapper>
   );
 };

@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 import { fetchPosts } from '../redux/actions/dataActions';
 import { selectPost } from '../redux/selectors';
 
 import Spinner from '../components/ui/Spinner';
+import PostInfo from '../components/posts/PostInfo';
 
 import { NotFound, StyledLink, Container } from '../styles/sharedStyles';
 import { Heading, ImageWrapper, Image } from './Post.styles';
 
 const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
-  console.log(post);
   useEffect(() => {
     if (!posts) {
       fetchPosts();
@@ -34,6 +33,7 @@ const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
   return (
     <Container>
       <Heading>{post.title}</Heading>
+      <PostInfo post={post} />
       {post.image && (
         <ImageWrapper>
           <Image

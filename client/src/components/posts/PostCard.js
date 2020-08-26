@@ -8,6 +8,7 @@ import { CardWrapper, Card, Title, Author, Name } from './PostCard.styles';
 
 const PostCard = ({ post }) => {
   const randomNumber = Math.floor(Math.random() * 7);
+
   return (
     <CardWrapper to={`post/${post._id}`}>
       <Card number={randomNumber}>
@@ -16,7 +17,7 @@ const PostCard = ({ post }) => {
         <Author>
           <p>A story written by </p>
           <Name>{post.author.name}</Name>
-          <Avatar src={post.author.image} tiny />
+          <Avatar src={post.author.image} size="small" />
         </Author>
       </Card>
     </CardWrapper>

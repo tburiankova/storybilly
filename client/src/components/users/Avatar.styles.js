@@ -7,10 +7,17 @@ export const AvatarWrapper = styled.div`
   overflow: hidden;
 
   ${(props) =>
-    props.tiny &&
+    props.size === 'small' &&
     css`
       width: 3rem;
       height: 3rem;
+    `}
+
+  ${(props) =>
+    props.size === 'tiny' &&
+    css`
+      width: 2.4rem;
+      height: 2.4rem;
     `}
 `;
 

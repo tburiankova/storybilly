@@ -5,9 +5,10 @@ import Post from '../../assets/post.png';
 import { ImageWrapper, Image } from './PostImage.styles';
 
 const PostImage = ({ src }) => {
+  const imageSrc = src ? `/${src}` : Post;
   return (
     <ImageWrapper>
-      <Image src={src ? src : Post} />
+      <Image src={imageSrc} />
     </ImageWrapper>
   );
 };
