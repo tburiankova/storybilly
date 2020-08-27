@@ -28,6 +28,8 @@ const UserSchema = new Schema({
       ref: 'Post',
     },
   ],
+  following: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
+  followers: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
 });
 
 UserSchema.plugin(uniqueValidator);
