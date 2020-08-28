@@ -9,7 +9,7 @@ exports.getUsers = async (req, res, next) => {
   let users;
 
   try {
-    users = await User.find({}, '-password');
+    users = await User.find({}, '-password').sort({ followers: 'desc' });
   } catch (err) {
     return next(
       new HttpError('Something went wrong, please try again later', 500)
@@ -173,6 +173,8 @@ exports.getUser = async (req, res, next) => {
       name: user.name,
       email: user.email,
       image: user.image,
+      following: user.following,
+      followers: user.followers,
     },
   });
 };

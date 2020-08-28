@@ -8,7 +8,8 @@ const colors = [
   '#FFF6E5',
   '#DCF5FC',
   '#E9D7ED',
-  '##EAEAEA',
+  '#EAEAEA',
+  'none',
 ];
 
 export const Card = styled.li`

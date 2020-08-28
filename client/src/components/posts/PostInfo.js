@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Container, Name, DateCreated, Divider } from './PostInfo.styles';
 import Avatar from '../users/Avatar';
+import Follow from '../users/Follow';
 
 const PostInfo = ({ post }) => {
   const datePosted = new Date(post.createdAt).toDateString();
@@ -12,6 +13,8 @@ const PostInfo = ({ post }) => {
       <Avatar src={post.author.image} size="tiny" />
       <Divider />
       <DateCreated>{datePosted}</DateCreated>
+      <Divider />
+      <Follow userId={post.author._id} />
     </Container>
   );
 };

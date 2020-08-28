@@ -8,10 +8,12 @@ const HttpError = require('../models/httpError');
 
 exports.getPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find().populate({
-      path: 'author',
-      model: 'User',
-    });
+    const posts = await Post.find()
+      .populate({
+        path: 'author',
+        model: 'User',
+      })
+      .sort({ createdAt: 'desc' });
     res.status(200).json({
       results: posts.length,
       posts,

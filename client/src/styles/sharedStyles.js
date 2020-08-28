@@ -8,12 +8,18 @@ export const Container = styled.div`
 `;
 
 export const Flexbox = styled.div`
+  display: flex;
   ${(props) =>
     props.center &&
     css`
-      display: flex;
       justify-content: center;
       align-items: center;
+    `}
+
+  ${(props) =>
+    props.column &&
+    css`
+      flex-direction: column;
     `}
 `;
 
@@ -27,6 +33,7 @@ export const NotFound = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 
   p {
     font-size: 1.5rem;
@@ -42,6 +49,10 @@ export const StyledLink = styled(Link)`
   margin: 1.6rem 0;
   display: inline-block;
   box-shadow: 0px 50px 80px rgba(0, 0, 0, 0.15);
+
+  &:disabled {
+    opacity: 0.3;
+  }
 
   ${(props) =>
     props.small &&

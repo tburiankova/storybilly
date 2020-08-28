@@ -98,7 +98,7 @@ const Index = ({ signup, login, user, loading, isLoggedIn }) => {
   };
 
   if (isLoggedIn) {
-    return <Account />;
+    return <Account own />;
   }
 
   return (

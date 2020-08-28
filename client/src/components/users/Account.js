@@ -4,15 +4,18 @@ import { connect } from 'react-redux';
 import Avatar from './Avatar';
 import MyPosts from '../posts/MyPosts';
 
-import { UserContainer } from './Account.styles';
+import { UserContainer, FollowersInfo } from './Account.styles';
 import { StyledLink } from '../../styles/sharedStyles';
 
-const Account = ({ user }) => {
+const Account = ({ user, own }) => {
   return (
     <>
       <UserContainer>
-        <h1>Hello, {user.name}!</h1>
+        {own ? <h2>Hello, {user.name}! </h2> : <h2>{user.name}</h2>}
         <Avatar src={user.image} />
+        <FollowersInfo light>
+          You have {user.followers.length} followers
+        </FollowersInfo>
         <StyledLink to="/posts/new">Share a Story?</StyledLink>
       </UserContainer>
       <MyPosts />

@@ -10,3 +10,10 @@ export const UserContainer = styled.div`
   align-items: center;
   box-shadow: 0px 30px 50px rgba(236, 149, 254, 0.1);
 `;
+
+export const FollowersInfo = styled.p`
+  margin-top: 2.4rem;
+  margin-bottom: 0;
+  color: var(--greyMedium);
+  font-size: 1.15rem;
+`;

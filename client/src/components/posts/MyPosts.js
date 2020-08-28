@@ -7,6 +7,8 @@ import { selectUserPosts } from '../../redux/selectors';
 import PostsList from './PostsList';
 import Spinner from '../ui/Spinner';
 
+import { NotFound } from '../../styles/sharedStyles';
+
 const MyPosts = ({ posts, loading, userPosts, fetchPosts }) => {
   useEffect(() => {
     if (!posts) {
@@ -19,7 +21,11 @@ const MyPosts = ({ posts, loading, userPosts, fetchPosts }) => {
   }
 
   if (userPosts.length === 0) {
-    return <p>You haven't written any stories yet!</p>;
+    return (
+      <NotFound>
+        <p>You haven't written any stories yet!</p>
+      </NotFound>
+    );
   }
 
   return (

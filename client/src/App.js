@@ -23,7 +23,7 @@ import FlashMessage from './components/ui/FlashMessage';
 
 import { loadUser } from './redux/actions/authActions';
 
-function App({ isLoggedIn, showMessage, loadUser }) {
+function App({ isLoggedIn, loadUser }) {
   // check for token in localStorage - if present and valid -> auto-login
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('storybilly'));

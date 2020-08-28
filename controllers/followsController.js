@@ -2,6 +2,21 @@ const mongoose = require('mongoose');
 const HttpError = require('../models/httpError');
 const User = require('../models/user');
 
+exports.getFollowers = async (req, res, next) => {
+  let user;
+
+  try {
+    user = await User.findById(req.params.id);
+    if (!user) {
+      return next(new HttpError('User not found'), 404);
+    }
+  } catch (err) {
+    return next(new HttpError('Could not find user', 500));
+  }
+
+  res.json({ followers: user.followers });
+};
+
 exports.follow = async (req, res, next) => {
   let userToFollow;
   let userUnFollowing;

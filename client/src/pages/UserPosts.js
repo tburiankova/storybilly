@@ -7,6 +7,8 @@ import { fetchPosts } from '../redux/actions/dataActions';
 import PostsList from '../components/posts/PostsList';
 import Spinner from '../components/ui/Spinner';
 
+import { NotFound } from '../styles/sharedStyles';
+
 const UserPosts = ({ posts, userPosts, fetchPosts, loading }) => {
   useEffect(() => {
     if (!posts) {
@@ -15,18 +17,18 @@ const UserPosts = ({ posts, userPosts, fetchPosts, loading }) => {
   }, []);
 
   if (loading || !posts) {
-    return <Spinner />;
+    return <Spinner center />;
   }
 
   if (userPosts.length === 0) {
-    return <p>No posts found...</p>;
+    return (
+      <NotFound>
+        <p>No posts found...</p>
+      </NotFound>
+    );
   }
 
-  return (
-    <div>
-      <PostsList posts={userPosts} userPosts />
-    </div>
-  );
+  return <PostsList posts={userPosts} userPosts />;
 };
 
 const mapStateToProps = (state, ownProps) => ({
