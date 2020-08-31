@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { fetchPosts } from '../redux/actions/dataActions';
-import { showFlashMessage } from '../redux/actions/messageActions';
-import { selectPost } from '../redux/selectors';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../utils/validators';
-
 import { useForm } from '../hooks/useForm';
+import { updatePost, deletePost } from '../redux/actions/dataActions';
+import { selectPost } from '../redux/selectors';
+
 import Spinner from '../components/ui/Spinner';
+import Modal from '../components/ui/Modal';
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
 import ImageUpload from '../components/forms/ImageUpload';
 
 import { Container, Flexbox, StyledLink } from '../styles/sharedStyles';
-
-import Modal from '../components/ui/Modal';
 
 const UpdatePost = ({
   posts,
@@ -24,7 +21,8 @@ const UpdatePost = ({
   user,
   loading,
   fetchPosts,
-  showMessage,
+  updatePost,
+  deletePost,
 }) => {
   const history = useHistory();
   const [showModal, setShowModal] = useState(false);
@@ -94,33 +92,14 @@ const UpdatePost = ({
 
     const headers = { Authorization: `Bearer ${user.token}` };
 
-    try {
-      const response = await axios.patch(
-        `${process.env.REACT_APP_BACKEND_URL}/posts/${post._id}`,
-        formData,
-        { headers }
-      );
-      fetchPosts();
-      showMessage(response.data.message);
-      history.push('/posts');
-    } catch (err) {
-      showMessage(err.response.data.message);
-    }
+    updatePost(formData, headers, post._id);
+    history.push('/posts');
   };
 
   const deletePostHandler = async () => {
     const headers = { Authorization: `Bearer ${user.token}` };
-    try {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/posts/${post._id}`,
-        { headers }
-      );
-      fetchPosts();
-      showMessage(response.data.message);
-      history.push('/posts');
-    } catch (err) {
-      showMessage(err.response.data.message);
-    }
+    deletePost(headers, post._id);
+    history.push('/posts');
   };
 
   const openModal = () => {
@@ -188,7 +167,7 @@ const UpdatePost = ({
               <ImageUpload id="image" onInput={inputHandler} />
               <Button
                 type="submit"
-                disabled={!formState.isFormValid}
+                disabled={!formState.isFormValid || loading}
                 size="medium"
                 center
               >
@@ -215,8 +194,9 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPosts: () => dispatch(fetchPosts()),
-  showMessage: (message) => dispatch(showFlashMessage(message)),
+  updatePost: (formData, headers, postId) =>
+    dispatch(updatePost(formData, headers, postId)),
+  deletePost: (headers, postId) => dispatch(deletePost(headers, postId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdatePost);

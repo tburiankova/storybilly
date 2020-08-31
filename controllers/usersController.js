@@ -92,6 +92,8 @@ exports.signUp = async (req, res, next) => {
       name: newUser.name,
       email: newUser.email,
       image: newUser.image,
+      following: newUser.following,
+      followers: newUser.followers,
       token,
     },
   });
@@ -152,6 +154,8 @@ exports.logIn = async (req, res, next) => {
       name: existingUser.name,
       email: existingUser.email,
       image: existingUser.image,
+      following: existingUser.following,
+      followers: existingUser.followers,
       token,
     },
   });

@@ -1,42 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
-import { loadUser } from '../../redux/actions/authActions';
-import { showFlashMessage } from '../../redux/actions/messageActions';
+import { follow, unfollow } from '../../redux/actions/dataActions';
 
 import { StyledLink } from '../../styles/sharedStyles';
 
-const Follow = ({ userId, user, isLoggedIn, loadUser, showMessage }) => {
-  const [state, setState] = useState({ follow: true, followers: [] });
+const Follow = ({ userId, user, isLoggedIn, follow, unfollow, loading }) => {
+  const [followMode, setFollowMode] = useState(true);
 
   useEffect(() => {
-    if (user.following.includes(userId)) {
-      setState({ ...state, follow: false });
+    if (isLoggedIn && user.following.includes(userId)) {
+      setFollowMode(false);
     }
-  }, []);
+  }, [isLoggedIn]);
 
   const onClickHandler = async () => {
     const headers = { Authorization: `Bearer ${user.token}` };
 
-    if (state.follow) {
-      const response = await axios.patch(
-        `${process.env.REACT_APP_BACKEND_URL}/follows/follow/${userId}`,
-        { data: null },
-        { headers }
-      );
-      setState({ ...state, follow: false });
-      loadUser(user.token);
-      showMessage(response.data.message);
+    if (followMode) {
+      follow(headers, userId, user._id);
+      setFollowMode(false);
     } else {
-      const response = await axios.patch(
-        `${process.env.REACT_APP_BACKEND_URL}/follows/unfollow/${userId}`,
-        { data: null },
-        { headers }
-      );
-      setState({ ...state, follow: true });
-      loadUser(user.token);
-      showMessage(response.data.message);
+      unfollow(headers, userId, user._id);
+      setFollowMode(true);
     }
   };
 
@@ -46,9 +32,9 @@ const Follow = ({ userId, user, isLoggedIn, loadUser, showMessage }) => {
         as="button"
         small
         onClick={onClickHandler}
-        disabled={!isLoggedIn || userId === user._id}
+        disabled={!isLoggedIn || userId === user._id || loading}
       >
-        {state.follow ? 'Follow' : 'Unfollow'}
+        {followMode ? 'Follow' : 'Unfollow'}
       </StyledLink>
     </>
   );
@@ -57,11 +43,14 @@ const Follow = ({ userId, user, isLoggedIn, loadUser, showMessage }) => {
 const mapStateToProps = (state) => ({
   isLoggedIn: state.auth.isLoggedIn,
   user: state.auth.user,
+  loading: state.data.followsLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadUser: (token) => dispatch(loadUser(token)),
-  showMessage: (message) => dispatch(showFlashMessage(message)),
+  follow: (headers, userToFollow, userFollowing) =>
+    dispatch(follow(headers, userToFollow, userFollowing)),
+  unfollow: (headers, userToUnfollow, userUnfollowing) =>
+    dispatch(unfollow(headers, userToUnfollow, userUnfollowing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Follow);

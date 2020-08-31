@@ -25,7 +25,7 @@ const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
   if (!post) {
     return (
       <NotFound>
-        <p>No post found...</p>
+        <p>Post not found...</p>
       </NotFound>
     );
   }
@@ -42,7 +42,7 @@ const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
           />
         </ImageWrapper>
       )}
-      <ReactMarkdown source={post.content}></ReactMarkdown>
+      <ReactMarkdown source={post.content} />
       {isLoggedIn && user._id === post.author._id && (
         <StyledLink to={`update/${post._id}`}>Manage Post</StyledLink>
       )}

@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+
+import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../utils/validators';
+import { useForm } from '../hooks/useForm';
+import { saveNewPost } from '../redux/actions/dataActions';
 
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
 import ImageUpload from '../components/forms/ImageUpload';
-import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../utils/validators';
 import Modal from '../components/ui/Modal';
-
-import { useForm } from '../hooks/useForm';
-import { showFlashMessage } from '../redux/actions/messageActions';
-import { fetchPosts, fetchUsers } from '../redux/actions/dataActions';
 
 import { Container, Flexbox, StyledLink } from '../styles/sharedStyles';
 
-const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
+const NewPost = ({ user, loading, saveNewPost }) => {
   const [showModal, setShowModal] = useState(false);
   const [formState, inputHandler] = useForm(
     {
@@ -47,19 +45,9 @@ const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
 
     const headers = { Authorization: `Bearer ${user.token}` };
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/posts`,
-        formData,
-        { headers }
-      );
-      fetchPosts();
-      fetchUsers();
-      showMessage(response.data.message);
-      history.push('/posts');
-    } catch (err) {
-      showMessage(err.response.data.message);
-    }
+    saveNewPost(formData, headers);
+
+    history.push('/posts');
   };
 
   const openModal = () => {
@@ -109,7 +97,7 @@ const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
           />
           <Button
             type="submit"
-            disabled={!formState.isFormValid}
+            disabled={!formState.isFormValid || loading}
             size="medium"
             center
           >
@@ -123,12 +111,11 @@ const NewPost = ({ user, showMessage, fetchPosts, fetchUsers }) => {
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
+  loading: state.data.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showMessage: (message) => dispatch(showFlashMessage(message)),
-  fetchPosts: () => dispatch(fetchPosts()),
-  fetchUsers: () => dispatch(fetchUsers()),
+  saveNewPost: (formData, headers) => dispatch(saveNewPost(formData, headers)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPost);

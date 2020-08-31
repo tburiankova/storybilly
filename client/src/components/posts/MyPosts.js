@@ -17,7 +17,7 @@ const MyPosts = ({ posts, loading, userPosts, fetchPosts }) => {
   }, []);
 
   if (loading || !posts) {
-    return <Spinner />;
+    return <Spinner center />;
   }
 
   if (userPosts.length === 0) {

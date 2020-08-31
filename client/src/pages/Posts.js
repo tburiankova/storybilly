@@ -8,7 +8,7 @@ import Spinner from '../components/ui/Spinner';
 
 import { NotFound } from '../styles/sharedStyles';
 
-const Posts = ({ posts, fetchPosts }) => {
+const Posts = ({ posts, error, fetchPosts }) => {
   useEffect(() => {
     if (!posts) {
       fetchPosts();
@@ -27,6 +27,14 @@ const Posts = ({ posts, fetchPosts }) => {
     );
   }
 
+  if (error) {
+    return (
+      <NotFound>
+        <p>Something went wrong, please try again later...</p>
+      </NotFound>
+    );
+  }
+
   return (
     <div>
       <PostsList posts={posts} />
@@ -41,6 +49,7 @@ Posts.propTypes = {
 
 const mapStateToProps = (state) => ({
   posts: state.data.posts,
+  error: state.data.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -19,7 +19,7 @@ exports.getFollowers = async (req, res, next) => {
 
 exports.follow = async (req, res, next) => {
   let userToFollow;
-  let userUnFollowing;
+  let userFollowing;
   try {
     userToFollow = await User.findById(req.params.id);
     if (!userToFollow) {
@@ -30,9 +30,9 @@ exports.follow = async (req, res, next) => {
   }
 
   try {
-    userUnFollowing = await User.findById(req.userData.userId);
+    userFollowing = await User.findById(req.userData.userId);
 
-    if (!userUnFollowing) {
+    if (!userFollowing) {
       return next(new HttpError('User not found'), 404);
     }
   } catch (err) {
@@ -43,7 +43,7 @@ exports.follow = async (req, res, next) => {
     return next(new HttpError('You are already following this user', 400));
   }
 
-  if (userToFollow._id.toString() == userUnFollowing._id.toString()) {
+  if (userToFollow._id.toString() == userFollowing._id.toString()) {
     return next(new HttpError('You cannot follow yourself', 400));
   }
 
@@ -52,10 +52,10 @@ exports.follow = async (req, res, next) => {
     session.startTransaction();
 
     await userToFollow.updateOne(
-      { $push: { followers: userUnFollowing } },
+      { $push: { followers: userFollowing } },
       { session }
     );
-    await userUnFollowing.updateOne(
+    await userFollowing.updateOne(
       { $push: { following: userToFollow } },
       { session }
     );

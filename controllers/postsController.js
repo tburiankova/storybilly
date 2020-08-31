@@ -113,7 +113,9 @@ exports.createPost = async (req, res, next) => {
     );
   }
 
-  res.status(201).json({ message: 'Post successfully created', post: newPost });
+  res
+    .status(201)
+    .json({ message: 'Post successfully created', post: newPost, user });
 };
 
 exports.updatePost = async (req, res, next) => {
@@ -200,5 +202,9 @@ exports.deletePost = async (req, res, next) => {
 
   res.json({
     message: 'Post successfully deleted',
+    post: {
+      _id: post._id,
+      author: post.author._id,
+    },
   });
 };

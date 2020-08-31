@@ -37,6 +37,24 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         loading: false,
       };
+    case 'FOLLOW':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          following: [...state.user.following, action.payload.userToFollow],
+        },
+      };
+    case 'UNFOLLOW':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          following: state.user.following.filter(
+            (user) => user !== action.payload.userToUnfollow
+          ),
+        },
+      };
     default:
       return state;
   }

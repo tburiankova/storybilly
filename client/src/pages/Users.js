@@ -6,9 +6,9 @@ import { fetchUsers } from '../redux/actions/dataActions';
 import UsersList from '../components/users/UsersList';
 import Spinner from '../components/ui/Spinner';
 
-import { Container } from '../styles/sharedStyles';
+import { Container, NotFound } from '../styles/sharedStyles';
 
-const Users = ({ users, fetchUsers }) => {
+const Users = ({ users, error, fetchUsers }) => {
   useEffect(() => {
     if (!users) {
       fetchUsers();
@@ -20,7 +20,19 @@ const Users = ({ users, fetchUsers }) => {
   }
 
   if (users.length === 0) {
-    return <p>There are no users yet!</p>;
+    return (
+      <NotFound>
+        <p>There are no users yet!</p>
+      </NotFound>
+    );
+  }
+
+  if (error) {
+    return (
+      <NotFound>
+        <p>Something went wrong, please try again later...</p>
+      </NotFound>
+    );
   }
 
   return (
@@ -37,6 +49,7 @@ Users.propTypes = {
 
 const mapStateToProps = (state) => ({
   users: state.data.users,
+  error: state.data.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
