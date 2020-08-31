@@ -10,7 +10,7 @@ export const ImageWrapper = styled.div`
 `;
 
 export const Image = styled.img`
+  max-height: 100%;
   width: 100%;
-  min-height: 100%;
   object-fit: cover;
 `;

@@ -23,4 +23,6 @@ export const AvatarWrapper = styled.div`
 
 export const AvatarImage = styled.img`
   width: 100%;
+  min-height: 100%;
+  object-fit: cover;
 `;

@@ -6,6 +6,7 @@ import PostCard from './PostCard';
 import Spinner from '../ui/Spinner';
 
 import { NotFound } from '../../styles/sharedStyles';
+import { List } from './PostsList.styles';
 
 const PostsList = ({ posts, loading, error, userPosts }) => {
   if (loading) {
@@ -21,11 +22,11 @@ const PostsList = ({ posts, loading, error, userPosts }) => {
   }
 
   return (
-    <ul>
+    <List>
       {posts.map((post) => (
         <PostCard key={post._id} post={post} userPosts={userPosts} />
       ))}
-    </ul>
+    </List>
   );
 };
 

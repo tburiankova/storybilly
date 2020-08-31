@@ -49,6 +49,6 @@ export const Label = styled.label`
 
 export const ErrorMessage = styled.p`
   font-size: 1.3rem;
-  color: var(--greyDark);
+  color: var(--pink);
   margin-bottom: 0.8rem;
 `;
