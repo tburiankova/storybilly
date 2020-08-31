@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 import Avatar from './Avatar';
 import Follow from './Follow';
@@ -10,18 +9,6 @@ import { Flexbox } from '../../styles/sharedStyles';
 
 const UserCard = ({ user }) => {
   const { _id, name, image, posts, followers } = user;
-  // const [followers, setFollowers] = useState([]);
-
-  // useEffect(() => {
-  //   const getFollowers = async () => {
-  //     const response = await axios.get(
-  //       `${process.env.REACT_APP_BACKEND_URL}/follows/${_id}`
-  //     );
-  //     setFollowers(response.data.followers);
-  //   };
-
-  //   getFollowers();
-  // }, []);
 
   const randomNumber = Math.floor(Math.random() * 9);
   return (
