@@ -15,5 +15,5 @@ export const FollowersInfo = styled.p`
   margin-top: 2.4rem;
   margin-bottom: 0;
   color: var(--greyMedium);
-  font-size: 1.15rem;
+  font-size: 1.3rem;
 `;

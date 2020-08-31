@@ -5,6 +5,26 @@ export const Container = styled.div`
   padding: 3.2rem 2.4rem;
   margin: 3.2rem 0.8rem;
   background-color: var(--offWhite);
+
+  ${(props) =>
+    props.full &&
+    css`
+      padding: 3.2rem 0;
+    `}
+
+  ${(props) =>
+    props.trans &&
+    css`
+      background-color: var(--whiteTrans);
+    `}
+
+  ${(props) =>
+    props.centerCol &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    `}
 `;
 
 export const Flexbox = styled.div`
@@ -61,4 +81,18 @@ export const StyledLink = styled(Link)`
       padding: 1rem 1.4rem;
       margin: 0.8rem 0;
     `}
+`;
+
+export const Label = styled.h2`
+  font-size: 1.3rem;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--lilacDark);
+  font-family: var(--fontP);
+
+  padding: 3.2rem 5.6rem;
+  display: inline-block;
+  max-width: 70%;
+  box-shadow: 0px 30px 50px rgba(204, 248, 242, 0.5);
 `;

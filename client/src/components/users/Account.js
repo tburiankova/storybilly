@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Avatar from './Avatar';
 import MyPosts from '../posts/MyPosts';
+import MyFavourites from '../posts/MyFavourites';
 
 import { UserContainer, FollowersInfo } from './Account.styles';
 import { StyledLink } from '../../styles/sharedStyles';
@@ -21,6 +22,7 @@ const Account = ({ user, own }) => {
         </FollowersInfo>
         <StyledLink to="/posts/new">Share a Story?</StyledLink>
       </UserContainer>
+      <MyFavourites />
       <MyPosts />
     </>
   );

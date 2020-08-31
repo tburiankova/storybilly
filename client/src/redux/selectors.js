@@ -11,3 +11,12 @@ export const selectPost = (postId) =>
   createSelector([selectPosts], (posts) =>
     posts ? posts.find((post) => post._id === postId) : null
   );
+
+export const selectFollowed = (following) =>
+  createSelector([selectPosts], (posts) => {
+    return posts
+      ? posts
+          .filter((post, i) => following.indexOf(post.author._id) >= 0 && i < 4)
+          .slice(0, 3)
+      : null;
+  });

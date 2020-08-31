@@ -7,7 +7,7 @@ import { selectUserPosts } from '../../redux/selectors';
 import PostsList from './PostsList';
 import Spinner from '../ui/Spinner';
 
-import { NotFound } from '../../styles/sharedStyles';
+import { Container, NotFound, Label } from '../../styles/sharedStyles';
 
 const MyPosts = ({ posts, loading, userPosts, fetchPosts }) => {
   useEffect(() => {
@@ -29,9 +29,10 @@ const MyPosts = ({ posts, loading, userPosts, fetchPosts }) => {
   }
 
   return (
-    <div>
+    <Container full trans centerCol>
+      <Label>Your posts</Label>
       <PostsList posts={userPosts} />
-    </div>
+    </Container>
   );
 };
 

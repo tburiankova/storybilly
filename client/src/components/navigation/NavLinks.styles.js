@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Burger = styled.button`
   display: block;
+  cursor: pointer;
 `;
 
 export const Line = styled.span`
