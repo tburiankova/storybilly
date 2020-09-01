@@ -15,6 +15,14 @@ export const Container = styled.div`
   border-radius: 4rem;
   transition: all 0.5s ease-in-out;
 
+  @media only screen and (min-width: 53.125em) {
+    width: 35%;
+  }
+
+  @media only screen and (min-width: 53.125em) {
+    width: 30%;
+  }
+
   ${(props) =>
     props.state === 'entered' || props.state === 'entering'
       ? css`

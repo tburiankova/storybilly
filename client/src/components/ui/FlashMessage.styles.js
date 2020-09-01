@@ -12,6 +12,7 @@ export const Container = styled.div`
   z-index: 101;
 
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 
   ${(props) =>
     props.state === 'entered' || props.state === 'entering'

@@ -7,7 +7,7 @@ import NavLinks from './NavLinks';
 import SideDrawer from './SideDrawer';
 import Backdrop from '../ui/Backdrop';
 
-import { Container, LogoImg } from './Navigation.styles';
+import { Bar, Container, LogoImg } from './Navigation.styles';
 
 const Navigation = ({ history }) => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -23,14 +23,16 @@ const Navigation = ({ history }) => {
   history.listen(() => closeDrawer());
 
   return (
-    <Container>
-      <SideDrawer drawerIsOpen={drawerIsOpen} />
-      {drawerIsOpen && <Backdrop onClick={closeDrawer} />}
-      <Link to="/">
-        <LogoImg src={Logo} alt="Storybilly" />
-      </Link>
-      <NavLinks openDrawer={openDrawer} />
-    </Container>
+    <Bar>
+      <Container>
+        <SideDrawer drawerIsOpen={drawerIsOpen} />
+        {drawerIsOpen && <Backdrop onClick={closeDrawer} />}
+        <Link to="/">
+          <LogoImg src={Logo} alt="Storybilly" />
+        </Link>
+        <NavLinks openDrawer={openDrawer} />
+      </Container>
+    </Bar>
   );
 };
 

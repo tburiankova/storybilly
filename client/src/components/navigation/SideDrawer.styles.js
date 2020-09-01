@@ -62,7 +62,3 @@ export const SignUp = styled.p`
   color: var(--white);
   font-size: 1.3rem;
 `;
-
-/* transform: translateX(
-  ${({ state }) => (state === 'entering' || state === 'entered' ? 0 : 150)}%
-); */

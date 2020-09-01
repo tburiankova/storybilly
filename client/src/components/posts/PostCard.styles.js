@@ -42,6 +42,7 @@ export const Author = styled.div`
   align-items: center;
   color: var(--greyMedium);
   font-size: 1.5rem;
+  font-family: var(--fontP);
 `;
 
 export const Name = styled.span`

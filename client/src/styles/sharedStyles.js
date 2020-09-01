@@ -93,7 +93,7 @@ export const Label = styled.h2`
   color: var(--lilacDark);
   font-family: var(--fontP);
 
-  padding: 3.2rem 5.6rem;
+  padding: 2.4rem 5.6rem;
   display: inline-block;
   max-width: 70%;
   box-shadow: 0px 30px 50px rgba(204, 248, 242, 0.5);

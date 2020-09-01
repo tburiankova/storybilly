@@ -5,6 +5,7 @@ import { Transition } from 'react-transition-group';
 import { Container, Message } from './Modal.styles';
 import Button from '../forms/Button';
 import Backdrop from '../ui/Backdrop';
+import Login from '../navigation/Login';
 import MarkdownCheatsheet from '../others/MarkdownCheatsheet';
 
 const ModalOverlay = ({
@@ -14,6 +15,7 @@ const ModalOverlay = ({
   closeModal,
   confirmModal,
   cheatsheet,
+  login,
   state,
 }) => {
   const content = (
@@ -21,6 +23,7 @@ const ModalOverlay = ({
       <h2>{heading}</h2>
       <Message>{message}</Message>
       {cheatsheet && <MarkdownCheatsheet />}
+      {login && <Login />}
       {confirm ? (
         <div>
           <Button onClick={closeModal} size="medium">

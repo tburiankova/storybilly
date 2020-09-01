@@ -8,6 +8,12 @@ import LatoIt from './fonts/lato-v16-latin-italic.woff';
 import Lato700 from './fonts/lato-v16-latin-700.woff';
 import confetti from '../assets/confetti-2x.png';
 
+// BREAKPOINTS
+// 700px = 43.75em
+// 850px = 53.125em
+// 1000px = 62.5em
+// 1300px = 81.25em
+
 export const GlobalStyles = createGlobalStyle`
 
     @font-face {
@@ -89,13 +95,23 @@ export const GlobalStyles = createGlobalStyle`
     html {
         font-size: 62.5%;
         box-sizing: border-box;
+
+        @media only screen and (min-width: 53.125em) {
+            font-size: 70%;
+        }
+        @media only screen and (min-width: 81.25em) {
+            font-size: 75%;
+        }
     }
 
     body {
         background-image: url(${confetti});
         background-repeat: repeat;
-        /* background-size: 500px 500px; */
         background-size: 350px 350px;
+        
+        @media only screen and (min-width: 53.125em) {
+            background-size: 500px 500px;
+        }
     }
 
     h1, h2, h3, h4 {
@@ -176,8 +192,11 @@ export const MainContainer = styled.main`
   width: 100%;
   background-color: transparent;
 
-  @media only screen and (min-width: 43.75rem) {
+  @media only screen and (min-width: 43.75em) {
     width: 90%;
     margin: 0 auto;
+  }
+  @media only screen and (min-width: 81.25em) {
+    width: 85%;
   }
 `;

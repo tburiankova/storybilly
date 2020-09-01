@@ -15,7 +15,7 @@ const PostCard = ({ post }) => {
         <Title>{post.title}</Title>
         <PostImage src={post.image} />
         <Author>
-          <p>A story written by </p>
+          A story written by
           <Name>{post.author.name}</Name>
           <Avatar src={post.author.image} size="small" />
         </Author>
