@@ -15,6 +15,7 @@ const colors = [
 
 export const CardWrapper = styled(Link)`
   text-decoration: none;
+  width: 100%;
 `;
 
 export const Card = styled.div`

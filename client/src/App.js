@@ -7,8 +7,7 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import './App.css';
-import { GlobalStyles } from './styles/globalStyles';
+import { MainContainer, GlobalStyles } from './styles/globalStyles';
 
 import Index from './pages/Index';
 import Posts from './pages/Posts';
@@ -83,7 +82,7 @@ function App({ isLoggedIn, loadUser }) {
       <GlobalStyles />
       <Navigation />
       <FlashMessage />
-      {routes}
+      <MainContainer>{routes}</MainContainer>
     </Router>
   );
 }

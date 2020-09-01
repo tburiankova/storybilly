@@ -20,3 +20,9 @@ export const selectFollowed = (following) =>
           .slice(0, 3)
       : null;
   });
+
+export const selectLastPost = () =>
+  createSelector([selectPosts], (posts) => {
+    console.log(posts);
+    return posts ? posts[0] : null;
+  });

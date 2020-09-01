@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import PostImage from './PostImage';
 
@@ -24,4 +24,4 @@ const PostCard = ({ post }) => {
   );
 };
 
-export default PostCard;
+export default memo(PostCard);

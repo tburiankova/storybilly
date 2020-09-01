@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import PlayfairDisplayReg from './fonts/playfair-display-v21-latin-regular.woff';
 import PlayfairDisplay700 from './fonts/playfair-display-v21-latin-700.woff';
@@ -148,6 +148,7 @@ export const GlobalStyles = createGlobalStyle`
     button {
         background: none;
         border: none;
+        cursor: pointer;
     }
 
     blockquote {
@@ -169,4 +170,14 @@ export const GlobalStyles = createGlobalStyle`
         }
     }
 
+`;
+
+export const MainContainer = styled.main`
+  width: 100%;
+  background-color: transparent;
+
+  @media only screen and (min-width: 43.75rem) {
+    width: 90%;
+    margin: 0 auto;
+  }
 `;

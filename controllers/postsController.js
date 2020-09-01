@@ -20,7 +20,20 @@ exports.getPosts = async (req, res, next) => {
     });
   } catch (err) {
     return next(
-      new HttpError('Something went wrong, please try again later...')
+      new HttpError('Something went wrong, please try again later...', 500)
+    );
+  }
+};
+
+exports.getLast = async (req, res, next) => {
+  try {
+    const post = await Post.findOne()
+      .sort({ field: 'asc', _id: -1 })
+      .populate({ path: 'author', model: 'User' });
+    res.status(200).json({ post });
+  } catch (err) {
+    return next(
+      new HttpError('Could not load last post, please try again later', 500)
     );
   }
 };

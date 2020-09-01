@@ -17,6 +17,8 @@ router
     postsController.createPost
   );
 
+router.route('/last').get(postsController.getLast);
+
 router
   .route('/:id')
   .get(postsController.getPost)
