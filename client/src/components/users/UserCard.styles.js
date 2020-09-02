@@ -30,7 +30,7 @@ export const Card = styled.li`
 
 export const Text = styled.p`
   margin: 0.8rem 0;
-  margin-bottom: 0;
+  text-align: center;
 
   ${(props) =>
     props.light &&

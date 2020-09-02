@@ -23,6 +23,5 @@ export const selectFollowed = (following) =>
 
 export const selectLastPost = () =>
   createSelector([selectPosts], (posts) => {
-    console.log(posts);
     return posts ? posts[0] : null;
   });

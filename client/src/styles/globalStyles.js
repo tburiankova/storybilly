@@ -141,7 +141,6 @@ export const GlobalStyles = createGlobalStyle`
 
     p {
         line-height: 163%;
-        margin-bottom: .8rem;
     }
 
     p, li, span {
@@ -154,40 +153,20 @@ export const GlobalStyles = createGlobalStyle`
         list-style: none;
     }
 
-    ol {
-        margin-left: 1.6rem;
-        margin-bottom: 2.4rem;
-    }
-
-    li {
-        margin-left: .4rem;
-        margin-bottom: .4rem;
-    }
-
     button {
         background: none;
         border: none;
         cursor: pointer;
     }
 
-    blockquote {
-        border-left: 5px solid var(--white);
-        border-radius: 2px;
-        margin: 2.4rem 0 2.4rem .8rem;
-        padding: .8rem;
-        background-color: var(--whiteTrans);
-        box-shadow: 0px 30px 80px rgba(0, 0, 0, 0.06);
-        font-style: italic;
-    }
+  a {
+    text-decoration: none;
+    color: var(--lilacDark);
 
-    a {
-        text-decoration: none;
-        color: var(--lilacDark);
-
-        &:hover {
-            color: var(--lilac);
-        }
+    &:hover {
+      color: var(--lilac);
     }
+  }
 
 `;
 

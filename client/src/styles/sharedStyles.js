@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const Container = styled.div`
   width: 100%;
   padding: 3.2rem 2.4rem;
-  margin: 1.6rem 0.8rem;
+  margin: 1.6rem auto;
   background-color: var(--offWhite);
 
   ${(props) =>

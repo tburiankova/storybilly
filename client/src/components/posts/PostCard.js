@@ -4,7 +4,7 @@ import PostImage from './PostImage';
 
 import Avatar from '../users/Avatar';
 
-import { CardWrapper, Card, Title, Author, Name } from './PostCard.styles';
+import { Card, Title, Author, Name } from './PostCard.styles';
 
 const PostCard = ({ post, own, main }) => {
   const randomNumber = Math.floor(Math.random() * 9);

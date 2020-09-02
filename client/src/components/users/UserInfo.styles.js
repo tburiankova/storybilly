@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const UserContainer = styled.div`
-  width: 90%;
+  width: 100%;
   margin: 1.6rem auto;
   padding: 3.2rem 1.6rem;
   background-color: var(--whiteTrans);
@@ -11,9 +11,12 @@ export const UserContainer = styled.div`
   box-shadow: 0px 30px 50px rgba(236, 149, 254, 0.1);
 `;
 
-export const FollowersInfo = styled.p`
+export const Info = styled.p`
   margin-top: 2.4rem;
-  margin-bottom: 0;
   color: var(--greyMedium);
   font-size: 1.3rem;
+
+  &:nth-child(2n) {
+    margin-top: 0;
+  }
 `;

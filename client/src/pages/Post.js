@@ -10,6 +10,7 @@ import PostInfo from '../components/posts/PostInfo';
 
 import { NotFound, StyledLink, Container } from '../styles/sharedStyles';
 import { Heading, ImageWrapper, Image } from './Post.styles';
+import { PostStyles } from '../styles/postStyles';
 
 const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
   useEffect(() => {
@@ -42,6 +43,7 @@ const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
           />
         </ImageWrapper>
       )}
+      <PostStyles />
       <ReactMarkdown source={post.content} />
       {isLoggedIn && user._id === post.author._id && (
         <StyledLink to={`update/${post._id}`}>Manage Post</StyledLink>

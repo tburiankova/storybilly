@@ -1,15 +1,16 @@
 import styled, { css } from 'styled-components';
 
 const SharedStyles = css`
+  font-size: 1.5rem;
+  font-family: var(--fontP);
+  display: block;
   padding: 0.8rem 1.6rem;
   background-color: var(--white);
   border: none;
   outline-color: var(--offWhite);
-  font-family: var(--fontP);
+  width: 100%;
   box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.06);
   border-radius: 2px;
-  display: block;
-  width: 100%;
 `;
 
 export const StyledInput = styled.input`
@@ -38,7 +39,7 @@ export const TextArea = styled.textarea`
 
 export const Label = styled.label`
   font-family: var(--fontP);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 
   ${(props) =>
     props.size === 'small' &&

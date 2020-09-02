@@ -8,6 +8,7 @@ import PostsList from '../components/posts/PostsList';
 import Spinner from '../components/ui/Spinner';
 
 import { NotFound } from '../styles/sharedStyles';
+import UserInfo from '../components/users/UserInfo';
 
 const UserPosts = ({ posts, userPosts, fetchPosts, loading }) => {
   useEffect(() => {
@@ -28,7 +29,12 @@ const UserPosts = ({ posts, userPosts, fetchPosts, loading }) => {
     );
   }
 
-  return <PostsList posts={userPosts} userPosts />;
+  return (
+    <>
+      <UserInfo user={userPosts[0].author} />
+      <PostsList posts={userPosts} userPosts />
+    </>
+  );
 };
 
 const mapStateToProps = (state, ownProps) => ({

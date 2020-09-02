@@ -11,6 +11,16 @@ export const ImageWrapper = styled.div`
   border-radius: 2px;
   box-shadow: 0px 30px 80px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+
+  @media only screen and (min-width: 53.125em) {
+    width: 80%;
+    height: 25rem;
+    margin: 0 auto 2.4rem auto;
+  }
+  @media only screen and (min-width: 89.75em) {
+    width: 70%;
+    height: 28rem;
+  }
 `;
 
 export const Image = styled.img`

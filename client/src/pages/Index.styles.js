@@ -60,7 +60,6 @@ export const Switch = styled.div`
 export const SwitchText = styled.p`
   font-size: 1.2rem;
   display: inline-block;
-  margin-bottom: 0;
 `;
 
 export const SwitchButton = styled.button`

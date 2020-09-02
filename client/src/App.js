@@ -16,7 +16,6 @@ import Post from './pages/Post';
 import UpdatePost from './pages/UpdatePost';
 import NewPost from './pages/NewPost';
 import Users from './pages/Users';
-import Account from './pages/Account';
 import Navigation from './components/navigation/Navigation';
 import FlashMessage from './components/ui/FlashMessage';
 import ScrollIntoView from './components/others/ScrollIntoView';
@@ -59,7 +58,6 @@ function App({ isLoggedIn, loadUser }) {
         <Route path="/user/post/update/:postId" component={UpdatePost} exact />
         <Route path="/post/update/:postId" component={UpdatePost} exact />
         <Route path="/users" component={Users} exact />
-        <Route path="/account" component={Account} exact />
         <Redirect to="/" />
       </Switch>
     );
@@ -72,7 +70,6 @@ function App({ isLoggedIn, loadUser }) {
         <Route path="/post/:postId" component={Post} exact />
         <Route path="/user/post/:postId" component={Post} exact />
         <Route path="/users" component={Users} exact />
-        <Route path="/account" component={Account} exact />
         <Redirect to="/" />
       </Switch>
     );
