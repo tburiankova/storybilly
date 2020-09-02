@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const colors = [
   '#E8ECFC',
@@ -16,9 +16,19 @@ const colors = [
 export const CardWrapper = styled(Link)`
   text-decoration: none;
   width: 100%;
+
+  ${(props) =>
+    props.main &&
+    css`
+      @media only screen and (min-width: 62.5em) {
+        &:first-child {
+          grid-column: 1 / span 2;
+        }
+      }
+    `}
 `;
 
-export const Card = styled.div`
+export const Card = styled(Link)`
   width: 90%;
   margin: 2.4rem auto 0 auto;
   padding: 3.2rem 1.6rem;
@@ -29,6 +39,23 @@ export const Card = styled.div`
   );
   box-shadow: 0px 30px 80px rgba(0, 0, 0, 0.06);
   border-radius: 2px;
+
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (min-width: 62.5em) {
+    width: 100%;
+  }
+
+  ${(props) =>
+    props.main &&
+    css`
+      @media only screen and (min-width: 62.5em) {
+        &:first-child {
+          grid-column: 1 / span 2;
+        }
+      }
+    `}
 `;
 
 export const Title = styled.h2`
@@ -37,6 +64,7 @@ export const Title = styled.h2`
 `;
 
 export const Author = styled.div`
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;

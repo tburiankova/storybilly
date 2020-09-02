@@ -9,10 +9,13 @@ import Lato700 from './fonts/lato-v16-latin-700.woff';
 import confetti from '../assets/confetti-2x.png';
 
 // BREAKPOINTS
+// 400px = 25em
+// 550px = 34.375em
 // 700px = 43.75em
 // 850px = 53.125em
 // 1000px = 62.5em
 // 1300px = 81.25em
+// 1500px = 93.75em
 
 export const GlobalStyles = createGlobalStyle`
 
@@ -198,5 +201,8 @@ export const MainContainer = styled.main`
   }
   @media only screen and (min-width: 81.25em) {
     width: 85%;
+  }
+  @media only screen and (min-width: 93.75em) {
+    width: 80%;
   }
 `;

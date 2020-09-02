@@ -19,6 +19,7 @@ import Users from './pages/Users';
 import Account from './pages/Account';
 import Navigation from './components/navigation/Navigation';
 import FlashMessage from './components/ui/FlashMessage';
+import ScrollIntoView from './components/others/ScrollIntoView';
 
 import { loadUser } from './redux/actions/authActions';
 
@@ -82,7 +83,10 @@ function App({ isLoggedIn, loadUser }) {
       <GlobalStyles />
       <Navigation />
       <FlashMessage />
-      <MainContainer>{routes}</MainContainer>
+      <MainContainer>
+        <ScrollIntoView />
+        {routes}
+      </MainContainer>
     </Router>
   );
 }

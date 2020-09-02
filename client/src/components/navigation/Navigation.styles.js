@@ -18,6 +18,10 @@ export const Container = styled.div`
   @media only screen and (min-width: 81.25em) {
     width: 85%;
   }
+
+  @media only screen and (min-width: 93.75em) {
+    width: 80%;
+  }
 `;
 
 export const LogoImg = styled.img`

@@ -5,6 +5,7 @@ export const AvatarWrapper = styled.div`
   height: 7rem;
   border-radius: 100%;
   overflow: hidden;
+  flex-shrink: 0;
 
   ${(props) =>
     props.size === 'small' &&

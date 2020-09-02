@@ -8,7 +8,7 @@ import Spinner from '../ui/Spinner';
 import { NotFound } from '../../styles/sharedStyles';
 import { List } from './PostsList.styles';
 
-const PostsList = ({ posts, loading, error, userPosts }) => {
+const PostsList = ({ posts, loading, error, userPosts, own, main }) => {
   if (loading) {
     return <Spinner center />;
   }
@@ -24,7 +24,12 @@ const PostsList = ({ posts, loading, error, userPosts }) => {
   return (
     <List>
       {posts.map((post) => (
-        <PostCard key={post._id} post={post} userPosts={userPosts} />
+        <PostCard
+          key={post._id}
+          post={post}
+          userPosts={userPosts}
+          main={main}
+        />
       ))}
     </List>
   );

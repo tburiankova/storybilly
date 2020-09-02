@@ -35,11 +35,7 @@ const Posts = ({ posts, error, fetchPosts }) => {
     );
   }
 
-  return (
-    <div>
-      <PostsList posts={posts} />
-    </div>
-  );
+  return <PostsList posts={posts} main="true" />;
 };
 
 Posts.propTypes = {

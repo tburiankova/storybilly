@@ -31,7 +31,7 @@ const MyPosts = ({ posts, loading, userPosts, fetchPosts }) => {
   return (
     <Container full trans centerCol>
       <Label>Your posts</Label>
-      <PostsList posts={userPosts} />
+      <PostsList posts={userPosts} own />
     </Container>
   );
 };

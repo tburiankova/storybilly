@@ -7,10 +7,14 @@ export const ImageWrapper = styled.div`
   overflow: hidden;
   border-radius: 2px;
   box-shadow: 0px 30px 80px rgba(0, 0, 0, 0.06);
+
+  @media only screen and (min-width: 25em) {
+    height: 23rem;
+  }
 `;
 
 export const Image = styled.img`
-  max-height: 100%;
+  min-height: 100%;
   width: 100%;
   object-fit: cover;
 `;

@@ -11,6 +11,10 @@ export const Container = styled.div`
     props.full &&
     css`
       padding: 3.2rem 0;
+
+      @media only screen and (min-width: 62.5em) {
+        padding: 3.2rem 2.4rem;
+      }
     `}
 
   ${(props) =>
