@@ -32,4 +32,5 @@ export const Message = styled.p`
   color: var(--greyDarkest);
   text-align: center;
   font-size: 1.3rem;
+  margin-bottom: 0;
 `;

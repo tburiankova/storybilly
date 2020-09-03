@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Heading = styled.h1`
   font-size: 2.4rem;
+  text-transform: capitalize;
 `;
 
 export const ImageWrapper = styled.div`
@@ -27,4 +28,17 @@ export const Image = styled.img`
   width: 100%;
   max-height: 100%;
   object-fit: cover;
+`;
+
+export const Content = styled.div`
+  margin: 0 auto;
+  @media only screen and (min-width: 53.125em) {
+    width: 90%;
+  }
+  @media only screen and (min-width: 89.75em) {
+    width: 80%;
+  }
+  @media only screen and (min-width: 93.75em) {
+    width: 70%;
+  }
 `;

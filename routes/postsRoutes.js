@@ -13,7 +13,7 @@ router
   .post(
     checkAuth,
     fileUpload.single('image'),
-    [check('title').not().isEmpty(), check('content').isLength({ min: 10 })],
+    [check('title').not().isEmpty(), check('content').isLength({ min: 1500 })],
     postsController.createPost
   );
 
@@ -25,7 +25,7 @@ router
   .patch(
     checkAuth,
     fileUpload.single('image'),
-    [check('title').not().isEmpty(), check('content').isLength({ min: 10 })],
+    [check('title').not().isEmpty(), check('content').isLength({ min: 1500 })],
     postsController.updatePost
   )
   .delete(checkAuth, postsController.deletePost);

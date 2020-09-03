@@ -16,7 +16,7 @@ export const selectFollowed = (following) =>
   createSelector([selectPosts], (posts) => {
     return posts
       ? posts
-          .filter((post, i) => following.indexOf(post.author._id) >= 0 && i < 4)
+          .filter((post) => following.indexOf(post.author._id) >= 0)
           .slice(0, 3)
       : null;
   });

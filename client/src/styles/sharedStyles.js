@@ -51,7 +51,7 @@ export const Flexbox = styled.div`
 export const NotFound = styled.div`
   background-color: var(--offWhite);
   margin: 3.2rem auto;
-  max-width: 80%;
+  max-width: 90%;
   padding: 2rem 3.5rem;
   box-shadow: 0px 50px 80px rgba(0, 0, 0, 0.15);
   border-radius: 2px;
@@ -63,6 +63,10 @@ export const NotFound = styled.div`
   p {
     font-size: 1.5rem;
     color: var(--greyDark);
+  }
+
+  @media only screen and (min-width: 43.75em) {
+    max-width: 100%;
   }
 `;
 

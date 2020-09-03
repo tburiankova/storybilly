@@ -17,7 +17,7 @@ const UserCard = ({ user }) => {
         <Flexbox center column>
           <Avatar src={image} />
           <Text>{name}</Text>
-          <Text light>Stories told: {posts.length}</Text>
+          <Text light>Stories: {posts.length}</Text>
           <Text light>Followers: {followers.length}</Text>
         </Flexbox>
       </Link>

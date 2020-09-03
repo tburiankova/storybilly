@@ -29,7 +29,7 @@ export const Card = styled.li`
 `;
 
 export const Text = styled.p`
-  margin: 0.8rem 0;
+  margin: 0.4rem 0 0;
   text-align: center;
 
   ${(props) =>

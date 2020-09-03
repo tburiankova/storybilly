@@ -9,7 +9,14 @@ exports.getUsers = async (req, res, next) => {
   let users;
 
   try {
-    users = await User.find({}, '-password').sort({ followers: 'desc' });
+    users = await User.aggregate([
+      { $addFields: { followersCount: { $size: '$followers' } } },
+      { $sort: { followersCount: -1 } },
+    ]);
+
+    // users = await User.find({}, '-password').sort({
+    //   followersCount: 'desc',
+    // });
   } catch (err) {
     return next(
       new HttpError('Something went wrong, please try again later', 500)

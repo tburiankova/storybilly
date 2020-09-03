@@ -13,21 +13,6 @@ const colors = [
   'none',
 ];
 
-export const CardWrapper = styled(Link)`
-  text-decoration: none;
-  width: 100%;
-
-  ${(props) =>
-    props.main &&
-    css`
-      @media only screen and (min-width: 62.5em) {
-        &:first-child {
-          grid-column: 1 / span 2;
-        }
-      }
-    `}
-`;
-
 export const Card = styled(Link)`
   width: 90%;
   margin: 2.4rem auto 0 auto;
@@ -53,6 +38,10 @@ export const Card = styled(Link)`
       @media only screen and (min-width: 62.5em) {
         &:first-child {
           grid-column: 1 / span 2;
+
+          .sc-fzoXzr.dXTbFE {
+            margin-top: -20%;
+          }
         }
       }
     `}
@@ -61,6 +50,7 @@ export const Card = styled(Link)`
 export const Title = styled.h2`
   font-size: 2.4rem;
   color: var(--black);
+  text-transform: capitalize;
 `;
 
 export const Author = styled.div`

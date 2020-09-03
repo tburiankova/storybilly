@@ -86,8 +86,8 @@ const NewPost = ({ user, loading, saveNewPost }) => {
             inputType="textarea"
             id="content"
             label="Your story"
-            validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(10)]}
-            errorMessage="A story must have at least 10 characters"
+            validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(1500)]}
+            errorMessage="A story must have at least 1500 characters"
             onInput={inputHandler}
           />
           <ImageUpload

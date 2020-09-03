@@ -9,7 +9,7 @@ import Spinner from '../components/ui/Spinner';
 import PostInfo from '../components/posts/PostInfo';
 
 import { NotFound, StyledLink, Container } from '../styles/sharedStyles';
-import { Heading, ImageWrapper, Image } from './Post.styles';
+import { Heading, ImageWrapper, Image, Content } from './Post.styles';
 import { PostStyles } from '../styles/postStyles';
 
 const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
@@ -33,21 +33,23 @@ const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
 
   return (
     <Container>
-      <Heading>{post.title}</Heading>
-      <PostInfo post={post} />
-      {post.image && (
-        <ImageWrapper>
-          <Image
-            src={`${process.env.REACT_APP_BASE_BACKEND_URL}/${post.image}`}
-            alt={post.title}
-          />
-        </ImageWrapper>
-      )}
-      <PostStyles />
-      <ReactMarkdown source={post.content} />
-      {isLoggedIn && user._id === post.author._id && (
-        <StyledLink to={`update/${post._id}`}>Manage Post</StyledLink>
-      )}
+      <Content>
+        <Heading>{post.title}</Heading>
+        <PostInfo post={post} />
+        {post.image && (
+          <ImageWrapper>
+            <Image
+              src={`${process.env.REACT_APP_BASE_BACKEND_URL}/${post.image}`}
+              alt={post.title}
+            />
+          </ImageWrapper>
+        )}
+        <PostStyles />
+        <ReactMarkdown source={post.content} />
+        {isLoggedIn && user._id === post.author._id && (
+          <StyledLink to={`update/${post._id}`}>Manage Post</StyledLink>
+        )}
+      </Content>
     </Container>
   );
 };
