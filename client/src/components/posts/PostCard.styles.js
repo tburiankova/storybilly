@@ -39,7 +39,7 @@ export const Card = styled(Link)`
         &:first-child {
           grid-column: 1 / span 2;
 
-          .sc-fzoXzr.dXTbFE {
+          .sc-fzoXzr {
             margin-top: -20%;
           }
         }
