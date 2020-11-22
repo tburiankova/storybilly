@@ -84,6 +84,10 @@ export const StyledLink = styled(Link)`
     opacity: 0.3;
   }
 
+  &:focus {
+    outline: 2px solid var(--mint);
+  }
+
   ${(props) =>
     props.small &&
     css`

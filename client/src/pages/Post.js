@@ -17,7 +17,7 @@ const Post = ({ posts, post, loading, fetchPosts, isLoggedIn, user }) => {
     if (!posts) {
       fetchPosts();
     }
-  }, []);
+  }, [posts, fetchPosts]);
 
   if (loading || !posts) {
     return <Spinner center />;

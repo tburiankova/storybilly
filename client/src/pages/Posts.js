@@ -13,7 +13,7 @@ const Posts = ({ posts, error, fetchPosts }) => {
     if (!posts) {
       fetchPosts();
     }
-  }, []);
+  }, [posts, fetchPosts]);
 
   if (!posts) {
     return <Spinner center />;

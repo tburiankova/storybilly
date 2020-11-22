@@ -13,7 +13,7 @@ const Users = ({ users, error, fetchUsers }) => {
     if (!users) {
       fetchUsers();
     }
-  }, []);
+  }, [users, fetchUsers]);
 
   if (!users) {
     return <Spinner center />;

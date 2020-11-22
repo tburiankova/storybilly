@@ -24,6 +24,7 @@ export const useFetch = (url, options) => {
     fetchData();
 
     return () => {
+      // eslint-disable-next-line
       cancelRequest = true;
     };
   }, []);

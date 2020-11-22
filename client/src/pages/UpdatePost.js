@@ -32,7 +32,7 @@ const UpdatePost = ({
     if (!posts) {
       fetchPosts();
     }
-  }, []);
+  }, [posts, fetchPosts]);
 
   const [formState, inputHandler, setFormData] = useForm(
     {

@@ -20,7 +20,7 @@ const MyFavourites = ({ user, posts, loading, followedPosts, fetchPosts }) => {
     if (!posts) {
       fetchPosts();
     }
-  }, []);
+  }, [posts, fetchPosts]);
 
   if (loading || !posts) {
     return <Spinner center />;

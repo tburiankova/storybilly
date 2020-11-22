@@ -42,7 +42,7 @@ function App({ isLoggedIn, loadUser }) {
     ) {
       localStorage.removeItem('storybilly');
     }
-  }, []);
+  }, [loadUser]);
 
   let routes;
 
@@ -90,7 +90,6 @@ function App({ isLoggedIn, loadUser }) {
 
 const mapStateToProps = (state) => ({
   isLoggedIn: state.auth.isLoggedIn,
-  showMessage: state.message.showMessage,
 });
 
 const mapDispatchToProps = (dispatch) => ({

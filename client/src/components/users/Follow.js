@@ -5,16 +5,16 @@ import { follow, unfollow } from '../../redux/actions/dataActions';
 
 import { StyledLink } from '../../styles/sharedStyles';
 
-const Follow = ({ userId, user, isLoggedIn, follow, unfollow, loading }) => {
+const Follow = ({ userId, user, isLoggedIn, follow, unfollow }) => {
   const [followMode, setFollowMode] = useState(true);
 
   useEffect(() => {
     if (isLoggedIn && user.following.includes(userId)) {
       setFollowMode(false);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, user, userId]);
 
-  const onClickHandler = async () => {
+  const onClickHandler = () => {
     const headers = { Authorization: `Bearer ${user.token}` };
 
     if (followMode) {
@@ -32,7 +32,7 @@ const Follow = ({ userId, user, isLoggedIn, follow, unfollow, loading }) => {
         as="button"
         small
         onClick={onClickHandler}
-        disabled={!isLoggedIn || userId === user._id || loading}
+        disabled={!isLoggedIn || userId === user._id}
       >
         {followMode ? 'Follow' : 'Unfollow'}
       </StyledLink>
@@ -43,7 +43,7 @@ const Follow = ({ userId, user, isLoggedIn, follow, unfollow, loading }) => {
 const mapStateToProps = (state) => ({
   isLoggedIn: state.auth.isLoggedIn,
   user: state.auth.user,
-  loading: state.data.followsLoading,
+  // loading: state.data.followsLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

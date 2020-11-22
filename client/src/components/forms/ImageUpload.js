@@ -24,6 +24,7 @@ const ImageUpload = ({ id, onInput, errorMessage }) => {
 
   const onChangeHandler = (e) => {
     let pickedFile;
+    // eslint-disable-next-line
     let fileIsValid = valid;
     if (e.target.files && e.target.files.length === 1) {
       pickedFile = e.target.files[0];
